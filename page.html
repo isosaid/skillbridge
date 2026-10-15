@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SkillBridge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="SkillBridge — обучение цифровым профессиям и выход на удалённую работу: диагностика, курсы, наставники, сертификация, заказы.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=PT+Serif:wght@700&display=swap">
+<style>
+/* Layout: a quiet, mobile-first page that walks the reader along the learning path — tracks, stages, who it's for, specialists, companies, enrolment. */
+:root{
+  --bg:#f7f8f6; --surface:#ffffff; --ink:#18221d; --muted:#5b6862; --line:#dfe4df;
+  --accent:#1f6b4f; --accent-ink:#ffffff; --soft:#e8f1ec; --warn:#a33a2c; --warn-soft:#f8e7e3; --amber:#8a5a00; --amber-soft:#f8efd9;
+  --font:"Golos Text","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111714; --surface:#18201c; --ink:#e7ede9; --muted:#9eaba4; --line:#29342e;
+  --accent:#62c29a; --accent-ink:#0d1a14; --soft:#1c2d25; --warn:#e8806f; --warn-soft:#35201c; --amber:#e5b75a; --amber-soft:#332a17; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111714; --surface:#18201c; --ink:#e7ede9; --muted:#9eaba4; --line:#29342e;
+  --accent:#62c29a; --accent-ink:#0d1a14; --soft:#1c2d25; --warn:#e8806f; --warn-soft:#35201c; --amber:#e5b75a; --amber-soft:#332a17; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55}
+[hidden]{display:none!important}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;line-height:1.2;text-wrap:balance}
+h1{font-size:clamp(28px,4.6vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(20px,2.6vw,26px);font-weight:700}
+h3{font-size:16px;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;text-decoration:none;color:var(--ink);flex:none}
+.logo svg{width:28px;height:16px}
+.nav{display:flex;gap:18px;font-size:14px}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.right{display:flex;gap:8px;align-items:center}
+.lang{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.lang button{border:0;background:var(--surface);color:var(--muted);font:600 12px var(--font);padding:6px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:8px;padding:11px 18px;font:600 14px var(--font);cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-line{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn-danger{background:var(--surface);color:var(--warn);border:1px solid var(--line)}
+.btn-sm{padding:7px 12px;font-size:13px}
+.btn:disabled{opacity:.6;cursor:default}
+:is(.btn,.lang button,.chip,input,select,textarea,.tab,a):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:clamp(16px,1.8vw,18px);max-width:62ch}
+.hero{padding-block:44px 36px;display:grid;gap:16px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.path{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.path li{padding:14px 16px;display:grid;gap:2px;position:relative;min-width:0}
+.path li+li{border-left:1px solid var(--line)}
+.path b{font-size:14px}
+.path span{font-size:13px;color:var(--muted)}
+.path .n{font-size:12px;font-weight:700;color:var(--accent)}
+section{padding-block:40px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:8px;margin-bottom:22px;max-width:66ch}
+.sec-head p{color:var(--muted)}
+.tracks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.track{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.track .skills{font-size:13px;color:var(--muted)}
+.hsearch{position:relative;max-width:640px;margin-top:6px}
+.hsinput{font-size:16px;padding:14px 16px;border-radius:10px;background:var(--surface)}
+.hres{margin-top:6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px;display:grid;gap:2px;max-height:420px;overflow:auto}
+.hlabel{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:6px 8px 2px}
+.hitem{display:grid;gap:2px;text-align:left;border:0;background:transparent;color:var(--ink);font:inherit;padding:8px;border-radius:8px;cursor:pointer}
+.hitem:hover,.hitem:focus-visible{background:var(--soft)}
+.hitem b{font-weight:600;font-size:14px}
+.hitem span{font-size:13px;color:var(--muted)}
+.hmore{border:0;background:transparent;color:var(--accent);font:600 13px var(--font);padding:8px;text-align:left;cursor:pointer}
+.thead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tgroup{font-size:12px;color:var(--muted)}
+.track.main{border-color:var(--accent)}
+.track.flash{box-shadow:0 0 0 3px var(--accent)}
+.more{display:flex;justify-content:center;margin-top:16px}
+.more:empty{display:none}
+.facts{display:grid;gap:4px;font-size:13px;margin:0}
+.facts div{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:6px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+.stages{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.stage{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,.8fr);gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.stage:last-child{border-bottom:1px solid var(--line)}
+.stage .when{font-size:13px;color:var(--muted)}
+.stage .when b{display:block;color:var(--ink);font-size:15px}
+.stage p{color:var(--muted);font-size:14px}
+.stage .out{font-size:14px;font-weight:600;color:var(--accent)}
+.stage .out small{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+.audience{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.aud{border-left:2px solid var(--accent);padding:4px 0 4px 14px;display:grid;gap:4px}
+.aud p{font-size:14px;color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 24px;margin-top:28px}
+.feature{display:grid;gap:4px}
+.feature p{font-size:14px;color:var(--muted)}
+.tools{display:grid;gap:12px;padding-bottom:16px}
+.search{max-width:520px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13px var(--font);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--soft);border-color:var(--accent);color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding-bottom:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.card .top{display:flex;gap:12px;align-items:center}
+.ava{width:40px;height:40px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:700;flex:none}
+.who{min-width:0}
+.role{color:var(--muted);font-size:13px}
+.skills{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.price{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.sample{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.empty{padding:20px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);text-align:center}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:32px;align-items:start}
+.points{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.points li{display:grid;gap:2px}
+.points p{color:var(--muted);font-size:14px}
+.formbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;min-width:0}
+.narrow{max-width:480px;margin-inline:auto}
+form{display:grid;gap:12px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:grid;gap:4px;font-size:13px;font-weight:500}
+input,select,textarea{width:100%;font:400 14px var(--font);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:90px;resize:vertical}
+.hint{font-size:13px;color:var(--muted)}
+.err{font-size:13px;color:var(--warn)}
+.ok{border:1px solid var(--accent);background:var(--soft);border-radius:8px;padding:12px;font-size:14px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.tgw{min-height:44px}
+.demo{font-size:13px;color:var(--amber);background:var(--amber-soft);border-radius:8px;padding:10px 12px}
+.cab{padding-block:28px;display:grid;gap:18px}
+.cabhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.userline{display:flex;align-items:center;gap:12px;min-width:0}
+.userline img{width:44px;height:44px;border-radius:50%}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
+.tab{border:1px solid var(--line);background:transparent;color:var(--ink);font:600 13px var(--font);padding:8px 14px;border-radius:8px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.list{display:grid;gap:10px}
+.ocard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;min-width:0}
+.ohead{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.otask{white-space:pre-wrap;overflow-wrap:anywhere}
+.ometa{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.b-new,.b-pending{background:var(--amber-soft);color:var(--amber);border-color:transparent}
+.b-accepted,.b-approved,.b-contacted{background:var(--soft);color:var(--accent);border-color:transparent}
+.b-done{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.b-declined,.b-cancelled,.b-rejected{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.stats{display:flex;gap:24px;flex-wrap:wrap}
+.stats b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
+.stats span{font-size:13px;color:var(--muted)}
+footer{padding-block:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.crs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.crs .track h3 a{color:inherit;text-decoration:none}
+.crs .track h3 a:hover{text-decoration:underline}
+.cmeta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--muted)}
+.bar2{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar2 i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.prog{border:1px dashed var(--accent);border-radius:12px;padding:18px;display:grid;gap:8px;margin-top:12px;background:var(--surface)}
+.page{padding-block:28px 40px;display:grid;gap:18px}
+.crumbs{font-size:13px;color:var(--muted)}
+.crumbs a{color:var(--muted)}
+.outline{list-style:none;margin:0;padding:0;display:grid;gap:0;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.outline li+li{border-top:1px solid var(--line)}
+.outline a,.outline span.row1{display:flex;gap:12px;align-items:center;padding:12px 14px;color:var(--ink);text-decoration:none}
+.outline a:hover{background:var(--soft)}
+.outline a[aria-current="page"]{background:var(--soft);font-weight:600}
+.mark{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;border:1.5px solid var(--line);color:var(--muted);flex:none}
+.mark.ok{background:var(--accent);border-color:var(--accent);color:transparent;font-size:0;position:relative}
+.mark.ok::after{content:"";position:absolute;left:6px;top:6px;width:8px;height:4px;border-left:2px solid var(--accent-ink);border-bottom:2px solid var(--accent-ink);transform:rotate(-45deg)}
+.learn{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+.learn aside{position:sticky;top:72px}
+.lesson{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:14px;min-width:0}
+.md{display:grid;gap:12px;font-size:16px;line-height:1.65;max-width:72ch}
+.md h3{font-size:18px;margin-top:6px}
+.md ul,.md ol{margin:0;padding-left:22px;display:grid;gap:4px}
+.md code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+.md pre{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto}
+.md pre code{border:0;padding:0;background:none;font-size:13px;line-height:1.5}
+.quiz{display:grid;gap:16px;border-top:1px solid var(--line);padding-top:18px}
+.qitem{display:grid;gap:8px;border:0;margin:0;padding:0;min-width:0}
+.qitem legend{font-weight:600;padding:0;margin-bottom:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-weight:400;font-size:15px}
+.opt input{width:auto;margin-top:3px}
+.opt:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.qitem.right .opt:has(input:checked){border-color:var(--accent)}
+.qitem.wrong .opt:has(input:checked){border-color:var(--warn);background:var(--warn-soft)}
+.qres{font-size:13px;font-weight:600}
+.qitem.right .qres{color:var(--accent)} .qitem.wrong .qres{color:var(--warn)}
+.navrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.certwrap{display:grid;gap:14px;justify-items:center}
+.certdoc{container-type:inline-size;width:100%;max-width:960px;aspect-ratio:297/210;background:#fff;color:#18221d;border-radius:6px;box-shadow:0 1px 0 #dfe4df,0 10px 40px rgba(0,0,0,.08);position:relative;overflow:hidden}
+.certdoc .frame{position:absolute;inset:3cqi;border:.25cqi solid #1f6b4f;outline:.12cqi solid #1f6b4f;outline-offset:-.9cqi;display:grid;grid-template-rows:auto 1fr auto;padding:4cqi 6cqi 3.4cqi}
+.certdoc .ctop{display:flex;justify-content:space-between;align-items:center;font-size:1.6cqi;color:#5b6862}
+.certdoc .ctop b{display:flex;align-items:center;gap:1cqi;font-size:2.2cqi;color:#18221d}
+.certdoc .ctop svg{width:3.6cqi;height:2cqi}
+.certdoc .cmid{display:grid;align-content:center;justify-items:center;text-align:center;gap:1.4cqi}
+.certdoc .ckind{font-size:5.2cqi;font-weight:700;letter-spacing:.18em;color:#1f6b4f}
+.certdoc .cno{font-size:1.6cqi;color:#5b6862;letter-spacing:.06em}
+.certdoc .ctext{font-size:1.9cqi;color:#5b6862}
+.certdoc .cname{font-size:4.4cqi;font-weight:700;line-height:1.15;border-bottom:.15cqi solid #dfe4df;padding:0 4cqi .8cqi}
+.certdoc .ctitle{font-size:2.8cqi;font-weight:600;max-width:80%}
+.certdoc .cfacts{display:flex;gap:4cqi;font-size:1.7cqi;color:#5b6862}
+.certdoc .cfacts b{display:block;color:#18221d;font-size:2.1cqi}
+.certdoc .cbot{display:flex;justify-content:space-between;align-items:flex-end;gap:3cqi;font-size:1.35cqi;color:#5b6862}
+.certdoc .signbox{display:grid;justify-items:center;width:32cqi}
+.certdoc .sigimg{width:27cqi;height:auto;margin:0 0 -.7cqi 3cqi;position:relative;z-index:1}
+.certdoc .sigline{width:100%;border-top:.14cqi solid #8a6d2b}
+.certdoc .signname{font-family:"PT Serif",Georgia,serif;font-size:2.3cqi;font-weight:700;color:#18221d;margin-top:.9cqi}
+.certdoc .sign{font-family:"PT Serif",Georgia,serif;font-size:1.5cqi;color:#5b6862;margin-top:.2cqi}
+.certdoc .cnote{max-width:46cqi}
+.revoked{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,255,255,.72);font-size:6cqi;font-weight:700;color:#a33a2c;letter-spacing:.1em;transform:rotate(-8deg)}
+.verify{display:flex;gap:8px;flex-wrap:wrap;max-width:520px}
+.verify input{flex:1;min-width:200px;text-transform:uppercase}
+@media (max-width:900px){.crs{grid-template-columns:repeat(2,minmax(0,1fr))}.learn{grid-template-columns:1fr}.learn aside{position:static}}
+@media (max-width:640px){.crs{grid-template-columns:1fr}.lesson{padding:16px}}
+@media print{
+  @page{size:A4 landscape;margin:0}
+  header,footer,.noprint{display:none!important}
+  body{background:#fff}
+  .page{padding:0}
+  .certdoc{max-width:none;width:297mm;height:210mm;aspect-ratio:auto;box-shadow:none;border-radius:0}
+}
+@media (max-width:900px){.nav{display:none}.tracks,.features{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}}
+@media (max-width:640px){
+  .row,.tracks,.features{grid-template-columns:1fr}
+  .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .path li:nth-child(3){border-left:0}
+  .path li:nth-child(n+3){border-top:1px solid var(--line)}
+  .stage{grid-template-columns:1fr;gap:6px}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="/" id="logo">
+      <svg viewBox="0 0 28 16" aria-hidden="true"><path d="M1 15H27" stroke="currentColor" stroke-width="2"/><path d="M4 15Q14 -1 24 15" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>
+      SkillBridge
+    </a>
+    <nav class="nav" id="nav-links" aria-label="Sections"></nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-line btn-sm" id="nav" href="/cabinet">Войти</a>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<footer><div class="wrap foot"><span id="foot-l">© 2026 SkillBridge</span><span id="foot-r"></span></div></footer>
+
+<script>
+var BOT = "__BOT_USERNAME__";
+var SIGNATURE = "__SIGNATURE__";
+// Preview without a server (e.g. inside Claude): sample data, no login.
+var DEMO = false;
+
+var CATS = [
+  {id:"all", ru:"Все", en:"All"},
+  {id:"dev", ru:"Разработка", en:"Development"},
+  {id:"marketing", ru:"Маркетинг и SMM", en:"Marketing & SMM"},
+  {id:"design", ru:"Дизайн", en:"Design"},
+  {id:"data", ru:"Данные", en:"Data"},
+  {id:"lang", ru:"Английский и переводы", en:"English & translation"},
+  {id:"cloud", ru:"Cloud и DevOps", en:"Cloud & DevOps"},
+  {id:"video", ru:"Видео", en:"Video"},
+  {id:"text", ru:"Тексты", en:"Writing"}
+];
+// Learning tracks. The six main tracks and their duration, certification and income ranges come from the
+// SkillBridge feasibility study (2026); the other tracks list skills only.
+var GROUPS = [
+  {id:"dev", ru:"Программирование", en:"Programming"},
+  {id:"data", ru:"Данные и ИИ", en:"Data & AI"},
+  {id:"infra", ru:"Инфраструктура и безопасность", en:"Infrastructure & security"},
+  {id:"design", ru:"Дизайн и креатив", en:"Design & creative"},
+  {id:"marketing", ru:"Маркетинг и продажи", en:"Marketing & sales"},
+  {id:"lang", ru:"Языки и тексты", en:"Languages & writing"},
+  {id:"business", ru:"Бизнес и управление", en:"Business & management"},
+  {id:"edu", ru:"Образование", en:"Education"}
+];
+var FACTS = {
+  it:{dur:{ru:"6–12 мес.", en:"6–12 months"}, cert:"Google IT / freeCodeCamp", inc:{ru:"$800–2 000 / мес.", en:"$800–2,000 / mo"}},
+  marketing:{dur:{ru:"3–6 мес.", en:"3–6 months"}, cert:"Google Digital / Meta Blueprint", inc:{ru:"$400–1 200 / мес.", en:"$400–1,200 / mo"}},
+  design:{dur:{ru:"4–8 мес.", en:"4–8 months"}, cert:"Google UX Design / Figma", inc:{ru:"$600–1 500 / мес.", en:"$600–1,500 / mo"}},
+  data:{dur:{ru:"4–8 мес.", en:"4–8 months"}, cert:"Google Data Analytics / IBM", inc:{ru:"$700–1 800 / мес.", en:"$700–1,800 / mo"}},
+  english:{dur:{ru:"6–9 мес.", en:"6–9 months"}, cert:"IELTS", inc:{ru:"доход ×1,5–2", en:"income ×1.5–2"}},
+  cloud:{dur:{ru:"6–10 мес.", en:"6–10 months"}, cert:"AWS Cloud Practitioner / Azure", inc:{ru:"$1 000–3 000 / мес.", en:"$1,000–3,000 / mo"}}
+};
+// [id, group, name ru, name en, skills ru, skills en ("" = same), extra search words]
+var RAW_TRACKS = [
+  ["it","dev","IT-разработка","IT development","Python, JavaScript, SQL, Git, Web, API","","программист programmer питон джава"],
+  ["frontend","dev","Frontend-разработка","Frontend development","HTML, CSS, JavaScript, TypeScript, React","","сайт верстка website"],
+  ["backend_py","dev","Backend на Python","Python backend","Python, Django, FastAPI, PostgreSQL, REST API","","сервер server"],
+  ["backend_node","dev","Backend на Node.js","Node.js backend","Node.js, Express, MongoDB, PostgreSQL","","сервер server javascript"],
+  ["mobile","dev","Мобильная разработка","Mobile development","Flutter, Kotlin, Swift, React Native","","приложение android ios app"],
+  ["wordpress","dev","Сайты на WordPress и Tilda","WordPress & Tilda websites","WordPress, Tilda, WooCommerce, вёрстка","WordPress, Tilda, WooCommerce, layout","сайт лендинг landing website"],
+  ["bots","dev","Telegram-боты и автоматизация","Telegram bots & automation","Python, aiogram, Make, Zapier, n8n","","бот bot telegram"],
+  ["qa","dev","Тестирование (QA)","Software testing (QA)","ручное тестирование, Postman, Selenium, Jira","manual testing, Postman, Selenium, Jira","тестировщик tester"],
+  ["gamedev","dev","Разработка игр","Game development","Unity, C#, Godot","","игры games"],
+  ["onec","dev","Программирование 1С","1C programming","1С:Предприятие, конфигурации, отчёты","1C:Enterprise, configurations, reports","1c"],
+  ["data","data","Данные и аналитика","Data & analytics","Excel, SQL, Python Pandas, Power BI","","аналитик analyst эксель питон"],
+  ["ml","data","Машинное обучение","Machine learning","Python, NumPy, scikit-learn, PyTorch","","ии ai нейросети neural"],
+  ["ai_tools","data","ИИ-инструменты и промпты","AI tools & prompting","ChatGPT, Claude, Midjourney, автоматизация","ChatGPT, Claude, Midjourney, automation","ии ai нейросети промпт prompt"],
+  ["bi","data","BI-аналитика","BI analytics","Power BI, Looker Studio, Tableau, SQL","","дашборд dashboard отчеты reports"],
+  ["excel","data","Excel и Google Таблицы","Excel & Google Sheets","формулы, сводные таблицы, Google Apps Script","formulas, pivot tables, Google Apps Script","таблицы spreadsheets эксель"],
+  ["labeling","data","Разметка данных для ИИ","Data labeling for AI","разметка текстов и изображений, контроль качества","text and image labeling, quality control","ии ai"],
+  ["cloud","infra","Cloud и DevOps","Cloud & DevOps","AWS, Azure, Docker, CI/CD, Linux","","облако devops"],
+  ["sysadmin","infra","Системное администрирование","System administration","Linux, Windows Server, сети, Bash","Linux, Windows Server, networking, Bash","админ admin сервер"],
+  ["security","infra","Кибербезопасность","Cybersecurity","основы ИБ, сети, SOC, Kali Linux","security basics, networking, SOC, Kali Linux","безопасность security хакер"],
+  ["helpdesk","infra","Техподдержка IT","IT help desk","Windows, офисные программы, удалённая поддержка, тикеты","Windows, office software, remote support, ticketing","поддержка support"],
+  ["design","design","UX/UI-дизайн","UX/UI design","Figma, Adobe XD, UX Research, Prototyping","","интерфейс interface ux ui фигма дизайнер"],
+  ["graphic","design","Графический дизайн","Graphic design","Photoshop, Illustrator, логотипы, айдентика","Photoshop, Illustrator, logos, brand identity","логотип logo баннер banner фотошоп дизайнер"],
+  ["motion","design","Моушн-дизайн","Motion design","After Effects, анимация, титры","After Effects, animation, titles","анимация animation"],
+  ["d3","design","3D-моделирование","3D modelling","Blender, 3ds Max, визуализация","Blender, 3ds Max, rendering","3d"],
+  ["video","design","Видеомонтаж","Video editing","Premiere Pro, DaVinci Resolve, CapCut, Reels","","видео video reels youtube монтаж"],
+  ["photo","design","Фото и ретушь","Photo editing","Lightroom, Photoshop, предметная съёмка","Lightroom, Photoshop, product photography","фото photo"],
+  ["slides","design","Дизайн презентаций","Presentation design","PowerPoint, Google Slides, Figma, инфографика","PowerPoint, Google Slides, Figma, infographics","презентация presentation"],
+  ["mp_design","design","Инфографика для маркетплейсов","Marketplace infographics","карточки товаров, Photoshop, Figma","product cards, Photoshop, Figma","wildberries ozon маркетплейс"],
+  ["marketing","marketing","Цифровой маркетинг","Digital marketing","SEO, SMM, Google Ads, Meta Ads, Email, Analytics","","маркетолог marketer реклама"],
+  ["smm","marketing","SMM","SMM","Instagram, TikTok, Telegram, контент-план, сторис","Instagram, TikTok, Telegram, content plan, stories","соцсети social инстаграм"],
+  ["target","marketing","Таргетированная реклама","Paid social ads","Meta Ads, TikTok Ads, VK Реклама, аналитика","Meta Ads, TikTok Ads, VK Ads, analytics","таргет target реклама ads"],
+  ["seo","marketing","SEO-продвижение","SEO","Google Search Console, семантика, аудит сайта","Google Search Console, keyword research, site audit","поиск search продвижение"],
+  ["ppc","marketing","Контекстная реклама","Search ads (PPC)","Google Ads, Яндекс Директ","Google Ads, Yandex Direct","реклама ads директ"],
+  ["email","marketing","Email-маркетинг","Email marketing","Mailchimp, Unisender, рассылки, автоворонки","Mailchimp, Unisender, newsletters, automated funnels","рассылка newsletter почта"],
+  ["mp","marketing","Менеджер маркетплейсов","Marketplace manager","Wildberries, Ozon, Amazon, аналитика продаж","Wildberries, Ozon, Amazon, sales analytics","маркетплейс marketplace"],
+  ["sales","marketing","Онлайн-продажи и лидогенерация","Online sales & lead generation","скрипты продаж, CRM, холодные письма","sales scripts, CRM, cold outreach","продажи sales клиенты"],
+  ["copy","marketing","Копирайтинг","Copywriting","тексты для сайтов и соцсетей, SEO-тексты","website and social copy, SEO texts","тексты texts writer"],
+  ["content","marketing","Контент-маркетинг и блогинг","Content marketing & blogging","статьи, сценарии, YouTube, Telegram-каналы","articles, scripts, YouTube, Telegram channels","блог blog контент"],
+  ["english","lang","Профессиональный английский","Professional English","Business English, English for Tech, IELTS","","английский english язык"],
+  ["translate","lang","Переводы","Translation","английский, русский, таджикский, CAT-инструменты","English, Russian, Tajik, CAT tools","перевод translator"],
+  ["transcribe","lang","Транскрибация и субтитры","Transcription & subtitles","расшифровка аудио, субтитры, Subtitle Edit","audio transcription, subtitles, Subtitle Edit","субтитры subtitles"],
+  ["proof","lang","Редактура и корректура","Editing & proofreading","грамматика, стиль, вычитка","grammar, style, proofreading","редактор editor"],
+  ["pm","business","Проектный менеджмент","Project management","Agile, Scrum, Jira, Trello, Notion","","менеджер manager проект"],
+  ["product","business","Продакт-менеджмент","Product management","исследования, метрики, roadmap, A/B-тесты","research, metrics, roadmap, A/B tests","продукт product"],
+  ["accounting","business","Бухгалтерия онлайн","Online bookkeeping","1С:Бухгалтерия, отчётность, Excel","1C:Accounting, reporting, Excel","бухгалтер accountant 1с"],
+  ["assistant","business","Онлайн-ассистент","Virtual assistant","почта, календарь, документы, Notion","email, calendar, documents, Notion","ассистент assistant помощник"],
+  ["hr","business","Рекрутинг и HR","Recruiting & HR","поиск кандидатов, собеседования, hh.ru, LinkedIn","sourcing, interviews, hh.ru, LinkedIn","рекрутер recruiter hr"],
+  ["support","business","Поддержка клиентов","Customer support","чаты, CRM, Zendesk, скрипты ответов","chats, CRM, Zendesk, reply scripts","оператор operator support"],
+  ["dataentry","business","Ввод и обработка данных","Data entry","Excel, Google Таблицы, CRM, внимательность","Excel, Google Sheets, CRM, accuracy","ввод данных data entry эксель"],
+  ["ecom","business","Управление интернет-магазином","Online store management","Shopify, WooCommerce, каталог, заказы","Shopify, WooCommerce, catalog, orders","магазин shop store"],
+  ["tutor","edu","Онлайн-репетиторство","Online tutoring","английский, математика, Zoom, методика","English, maths, Zoom, teaching methods","репетитор tutor учитель teacher"],
+  ["course","edu","Создание онлайн-курсов","Online course creation","методология, сценарии уроков, LMS, видео","instructional design, lesson scripts, LMS, video","курс course"]
+];
+var TRACKS = RAW_TRACKS.map(function (r) {
+  return {id:r[0], group:r[1], ru:r[2], en:r[3], sk:{ru:r[4], en:r[5] || r[4]}, kw:r[6] || "", f:FACTS[r[0]] || null};
+});
+function norm(x) { return String(x || "").toLowerCase().replace(/ё/g, "е"); }
+function groupName(id) { for (var i = 0; i < GROUPS.length; i++) if (GROUPS[i].id === id) return L(GROUPS[i]); return id; }
+function trackHay(tr) { return norm([tr.ru, tr.en, tr.sk.ru, tr.sk.en, tr.kw, groupName(tr.group)].join(" ")); }
+function specHay(p) { return norm([p.name, p.title, p.skills, p.city, catName(p.category)].join(" ")); }
+// Each query word must start one of the words in the text (so "бот" finds "боты", not "работа");
+// longer words also match a shorter stem ("дизайнер" finds "дизайн").
+function hit(hay, q) {
+  var hw = hay.split(/[^0-9a-zа-яґәөүұқғҳҷӣӯ#+]+/i).filter(Boolean);
+  var words = norm(q).split(/[^0-9a-zа-яґәөүұқғҳҷӣӯ#+]+/i).filter(Boolean);
+  return words.length > 0 && words.every(function (w) {
+    return hw.some(function (x) {
+      if (x.indexOf(w) === 0) return true;
+      return w.length >= 5 && x.length >= 4 && w.indexOf(x.slice(0, Math.max(4, x.length - 2))) === 0;
+    });
+  });
+}
+var STAGES = [
+  {when:{ru:"1–2 месяц", en:"Months 1–2"}, t:{ru:"Диагностика и старт", en:"Diagnostics and start"},
+   d:{ru:"Оценка навыков, выбор ниши, основы направления, старт английского.", en:"Skill assessment, choosing a niche, track basics, English begins."},
+   o:{ru:"Личный план обучения и профиль на фриланс-площадке", en:"Personal learning plan and a freelance profile"}},
+  {when:{ru:"2–4 месяц", en:"Months 2–4"}, t:{ru:"Упаковка навыка", en:"Packaging the skill"},
+   d:{ru:"Портфолио, профиль фрилансера, отклики клиентам, английский для профессии, встречи с наставником.", en:"Portfolio, freelancer profile, client proposals, English for your trade, mentor check-ins."},
+   o:{ru:"Готовый профиль и 3 проекта в портфолио", en:"Polished profile and 3 portfolio projects"}},
+  {when:{ru:"4–6 месяц", en:"Months 4–6"}, t:{ru:"Практика с наставником", en:"Guided practice"},
+   d:{ru:"Реальные заказы при поддержке наставника, первые заработки, разбор работ в группе.", en:"Real orders with mentor support, first earnings, peer review in your group."},
+   o:{ru:"Первые $100–500", en:"First $100–500"}},
+  {when:{ru:"6–12+ месяц", en:"Months 6–12+"}, t:{ru:"Рост", en:"Scaling"},
+   d:{ru:"Повышение ставок, своя клиентская база, специализация, подготовка к международной сертификации.", en:"Raising rates, building a client base, specialising, preparing for international certification."},
+   o:{ru:"Стабильный доход $400–2 000 / мес.", en:"Steady income $400–2,000 / mo"}}
+];
+var SAMPLE = [
+  {user_id:1, sample:true, name:"Фарход", title:"UX/UI-дизайнер", category:"design", skills:"Figma, прототипы, лендинги, мобильные интерфейсы", price:"от $150", city:"Душанбе", portfolio:""},
+  {user_id:2, sample:true, name:"Мадина", title:"Маркетолог", category:"marketing", skills:"SMM, таргет в Meta Ads, контент-план, аналитика", price:"от $250 / мес.", city:"Худжанд", portfolio:""},
+  {user_id:3, sample:true, name:"Сухроб", title:"Веб-разработчик", category:"dev", skills:"JavaScript, Python, Telegram-боты, лендинги", price:"от $300", city:"Душанбе", portfolio:""},
+  {user_id:4, sample:true, name:"Нилуфар", title:"Аналитик данных", category:"data", skills:"Excel, SQL, Power BI, отчёты для бизнеса", price:"от $120", city:"Бохтар", portfolio:""},
+  {user_id:5, sample:true, name:"Комрон", title:"DevOps-инженер", category:"cloud", skills:"AWS, Docker, CI/CD, Linux", price:"от $400", city:"Душанбе", portfolio:""},
+  {user_id:6, sample:true, name:"Зарина", title:"Переводчик", category:"lang", skills:"Английский, русский, таджикский; деловая переписка", price:"от $8 / стр.", city:"Куляб", portfolio:""}
+];
+
+var I18N = {
+ ru:{
+  all_tracks:"Для всех направлений", n_courses:"Курсы", c_eye:"Курсы с сертификатом", c_h:"Курсы", c_p:"Учитесь в своём темпе: короткие уроки, тест после каждого урока и итоговый экзамен. За каждый курс — сертификат с уникальным номером, за программу из нескольких курсов — удостоверение SkillBridge.",
+  k_cert:"Сертификат", k_id:"Удостоверение", hours_short:"ак. ч.", lessons_short:"уроков", exam_word:"экзамен", exam_q:"вопросов в экзамене", q_short:"вопр.",
+  start_course:"Начать курс", continue:"Продолжить", all_courses:"Все курсы", verify_btn:"Проверить документ", program_eye:"Программа квалификации", program_courses:"Курсы",
+  cert_legal:"Сертификаты и удостоверения SkillBridge подтверждают прохождение обучения на платформе. Это не документы об образовании государственного образца.",
+  syllabus:"Программа курса", final_exam:"Итоговый экзамен", exam_locked:"после всех уроков", pass_rule:"Урок засчитывается, если верно ответить на 70% вопросов теста. Экзамен — тоже от 70%.",
+  progress:"Пройдено уроков", open_cert:"Открыть сертификат", open_id:"Открыть удостоверение", go_exam:"Перейти к экзамену", in_program:"Курс входит в программу:",
+  learn_login_h:"Войдите, чтобы учиться", learn_login_p:"Вход через Telegram сохранит ваш прогресс и сертификаты в кабинете.",
+  not_found:"Страница не найдена.", lesson:"Урок", prev:"Назад", next:"Следующий урок", check_yourself:"Проверьте себя", check:"Проверить",
+  lesson_done:"Урок пройден.", lesson_quiz_hint:"Ответьте на вопросы, чтобы засчитать урок.", lesson_retry:"Верно {r} из {t}. Перечитайте урок и попробуйте ещё раз.",
+  right:"Верно", wrong:"Неверно", answer_all:"Ответьте на все вопросы.",
+  exam_already:"Вы уже сдали этот экзамен.", exam_not_ready:"Экзамен откроется, когда вы пройдёте все уроки курса.", back_to_course:"К курсу",
+  no_attempts:"Попытки на сегодня закончились. Попробуйте завтра.", exam_rules:"{n} вопросов. Для сертификата нужно 70% верных ответов. Осталось попыток сегодня: {a}.",
+  cert_name:"Имя и фамилия для сертификата", cert_name_hint:"Так они будут напечатаны в документе. Изменить потом нельзя.", cert_name_req:"Укажите имя и фамилию для сертификата.",
+  finish_exam:"Завершить экзамен", exam_passed:"Экзамен сдан: {s}%. Сертификат готов.", exam_failed:"Результат {s}% — нужно 70%. Повторите уроки и попробуйте снова. Попыток сегодня: {a}.",
+  doc_cert:"СЕРТИФИКАТ", doc_id:"УДОСТОВЕРЕНИЕ", doc_confirms:"Настоящим подтверждается, что", doc_course:"успешно прошёл(-ла) курс и сдал(-а) итоговый экзамен",
+  doc_program:"успешно освоил(-а) программу квалификации", acad_hours:"ак. ч.", doc_volume:"объём", doc_score:"итоговый результат", doc_date:"дата выдачи",
+  doc_note:"Подлинность документа можно проверить по адресу {u}", doc_sign:"Руководитель платформы", doc_signer:"Исо Саидов",
+  verify_ok:"Документ действителен: № {c}", verify_revoked:"Документ аннулирован.", verify_h:"Проверка документа", verify_p:"Введите номер сертификата или удостоверения, например SB-2026-XXXXXXXX.",
+  verify_go:"Проверить", verify_none:"Документ с номером {c} не найден.", print_pdf:"Скачать PDF / печать", copy_link:"Скопировать ссылку", copied:"Ссылка скопирована",
+  demo_cert:"Демо: в предпросмотре документ не сохраняется. На сайте он хранится в базе и проверяется по номеру.",
+  cert_revoked:"Аннулирован", t_learning:"Обучение", my_certs:"Мои документы", no_certs:"Пока нет сертификатов — пройдите курс и сдайте экзамен.",
+  my_courses:"Мои курсы", no_courses:"Вы ещё не начали ни одного курса.", adm_certs:"Выданные документы", adm_revoke:"Аннулировать", adm_restore:"Восстановить", certs_n:"документов",
+  login:"Войти", cabinet:"Кабинет", catalog:"На главную", logout:"Выйти",
+  n_tracks:"Направления", n_how:"Как проходит", n_people:"Специалисты", n_b2b:"Компаниям",
+  eyebrow:"Обучение → сертификат → удалённая работа",
+  h1:"Работа без переезда — через квалификацию",
+  lead:"SkillBridge помогает освоить цифровую профессию, собрать портфолио и выйти на удалённые заказы. Короткие уроки, наставники и группа единомышленников — от первого урока до первого дохода.",
+  cta_learn:"Записаться на обучение", cta_hire:"Найти специалиста",
+  p1:"Диагностика", p1d:"навыки и ниша за 15 минут", p2:"Обучение", p2d:"уроки по 10–20 минут", p3:"Сертификат", p3d:"подготовка к международным", p4:"Заказы", p4d:"выход на удалённую работу",
+  tr_h:"Направления обучения", tr_p:"{n} направлений в {g} областях. Шесть основных выбраны по спросу на мировых фриланс-площадках и по доходу, на который реально выйти удалённо.",
+  tr_search:"Поиск направления: Python, SMM, Excel, логотип…", tr_more:"Показать все", tr_less:"Свернуть", tr_main:"Основное",
+  tr_none:"Ничего не нашлось. Оставьте заявку — подберём направление вместе.",
+  s_ph:"Что хотите освоить или кого ищете? Например: Python, логотип, Excel", s_tracks:"Направления", s_people:"Специалисты",
+  s_none:"Ничего не найдено. Попробуйте другое слово.", s_all:"Все подходящие направления",
+  tr_dur:"Длительность", tr_cert:"Подготовка к", tr_inc:"Ориентир дохода", tr_btn:"Записаться",
+  tr_note:"Срок, сертификат и ориентир дохода указаны для основных направлений. Ориентир дохода — оценка по рынку удалённой работы, а не гарантия.",
+  st_h:"Как проходит обучение", st_p:"Каждое направление идёт по одной схеме: диагностика → теория → практика → доход. Каждый этап заканчивается измеримым результатом.",
+  st_out:"Результат",
+  f1:"Диагностика навыков", f1d:"За 15 минут определим уровень, подходящую нишу и составим план.",
+  f2:"Короткие уроки", f2d:"Модули по 10–20 минут: удобно с телефона и при слабом интернете.",
+  f3:"Наставники", f3d:"Разбор работ, встречи один на один и групповые воркшопы.",
+  f4:"Учёба в группе", f4d:"Группы по 15–20 человек, промежуточные цели каждые две недели.",
+  f5:"Английский в каждом направлении", f5d:"Учитесь на понятном языке — зарабатывайте на английском.",
+  f6:"Выход на заказы", f6d:"Профиль на фриланс-площадках и прямые заказы через каталог SkillBridge.",
+  au_h:"Для кого",
+  a1:"Молодёжь 18–34", a1d:"Без работы или с низким доходом: навык → первый доход за 3–6 месяцев.",
+  a2:"Тем, кто собирается на заработки", a2d:"Попробуйте сначала зарабатывать дома — не меньше, чем на выезде.",
+  a3:"Вернувшимся из миграции", a3d:"Опыт работы и язык превращаются в удалённую профессию.",
+  a4:"Женщинам", a4d:"Работа из дома без переезда и разлуки с семьёй.",
+  a5:"Компаниям", a5d:"Обучение сотрудников и найм подготовленных специалистов.",
+  pp_h:"Специалисты", pp_p:"Выпускники и опытные специалисты, прошедшие проверку. Выберите исполнителя и закажите работу.",
+  search:"Поиск: логотип, SQL, Reels…", nobody:"Никого не нашли. Попробуйте другое слово или направление.",
+  empty_catalog:"Каталог пополняется. Если вы специалист — заполните анкету в кабинете.",
+  order:"Заказать", portfolio:"Работы", sample:"Пример",
+  order_h:"Заказать работу", login_to_order:"Чтобы оформить заказ, войдите через Telegram. Это займёт пару секунд.",
+  f_spec:"Специалист", any_spec:"Любой — помогите подобрать", f_task:"Что нужно сделать", f_budget:"Бюджет", f_deadline:"Срок",
+  f_contact:"Как с вами связаться", send_order:"Отправить заказ", req_order:"Опишите задачу и укажите контакт.",
+  order_sent:"Заказ отправлен. Статус — в кабинете, уведомления придут в Telegram.", to_cabinet:"Открыть кабинет",
+  b2b_h:"Компаниям", b2b_p:"Цифровые специалисты для вашей команды — обучим ваших сотрудников или подберём готовых.",
+  b1:"Корпоративное обучение", b1d:"Доступ команды к курсам, отслеживание прогресса и отчёты для руководителя.",
+  b2:"Найм выпускников", b2d:"Подберём проверенных специалистов под задачу — на проект или на постоянную работу.",
+  b3:"Аутстаффинг", b3d:"Удалённые специалисты работают в вашей команде, а мы берём на себя подбор.",
+  b_company:"Компания", b_name:"Ваше имя", b_contact:"Телефон, Telegram или e-mail", b_msg:"Что нужно", b_send:"Отправить заявку",
+  b_req:"Укажите имя и контакт.", b_sent:"Спасибо! Мы свяжемся с вами в течение рабочего дня.",
+  e_h:"Записаться на обучение", e_p:"Оставьте заявку — свяжемся, проведём диагностику и подберём направление.",
+  e_name:"Имя", e_contact:"Телефон или Telegram", e_track:"Направление", e_track_any:"Пока не знаю — помогите выбрать",
+  e_level:"Ваш уровень", e_l0:"С нуля", e_l1:"Есть базовые навыки", e_l2:"Уже работаю в этой сфере",
+  e_eng:"Английский", e_city:"Город", e_msg:"Комментарий", e_send:"Записаться",
+  e_req:"Укажите имя и контакт.", e_sent:"Заявка принята! Мы свяжемся с вами и пригласим на диагностику.",
+  demo_note:"Это предпросмотр: заявки отсюда не отправляются. На опубликованном сайте они сразу придут в Telegram.",
+  demo_login:"Вход через Telegram работает на опубликованном сайте.",
+  login_h:"Вход в SkillBridge", login_p:"Войдите через Telegram: регистрация произойдёт автоматически, пароль не нужен.",
+  login_failed:"Не удалось войти. Попробуйте ещё раз.", no_bot:"Вход через Telegram ещё не настроен (нет BOT_USERNAME).",
+  t_orders:"Мои заказы", t_profile:"Анкета специалиста", t_admin:"Администрирование",
+  my_orders:"Я заказал", no_my_orders:"Вы ещё ничего не заказывали.", forme:"Заказы мне", no_forme:"Заказов пока нет.",
+  spec_not_set:"Специалист подбирается", client:"Клиент", contact:"Контакт", budget:"Бюджет", deadline:"Срок", created:"Создан",
+  a_accept:"Принять", a_decline:"Отказаться", a_done:"Выполнено", a_cancel:"Отменить",
+  st_new:"Новый", st_accepted:"В работе", st_declined:"Отклонён", st_done:"Выполнен", st_cancelled:"Отменён",
+  ps_pending:"На проверке", ps_approved:"Опубликована", ps_rejected:"Отклонена",
+  ls_new:"Новая", ls_contacted:"Связались", ls_archived:"В архиве",
+  p_intro:"Заполните анкету — после проверки вы появитесь в каталоге и начнёте получать заказы.",
+  p_name:"Имя", p_title:"Специальность", p_title_ph:"Например: UX/UI-дизайнер", p_cat:"Направление", p_skills:"Навыки и опыт",
+  p_price:"Цена от", p_city:"Город", p_portfolio:"Примеры работ (ссылка)", p_save:"Отправить на проверку",
+  p_req:"Заполните имя, специальность и навыки.", p_saved:"Анкета отправлена на проверку.", p_status:"Статус анкеты",
+  adm_leads:"Заявки на обучение и от компаний", adm_noleads:"Новых заявок нет.", adm_contacted:"Связались", adm_archive:"В архив",
+  k_learn:"Обучение", k_b2b:"Компания",
+  adm_pending:"Анкеты на проверку", adm_none:"Новых анкет нет.", adm_orders:"Все заказы", adm_approve:"Одобрить", adm_reject:"Отклонить",
+  adm_assign:"Назначить", adm_pick:"Выберите специалиста", users:"пользователей", specialists:"специалистов", orders:"заказов", leads:"новых заявок",
+  loading:"Загрузка…", error:"Что-то пошло не так. Обновите страницу.", need_login:"Сессия закончилась — войдите снова.",
+  foot_r:"Обучение цифровым профессиям и удалённая работа"
+ },
+ en:{
+  all_tracks:"For every track", n_courses:"Courses", c_eye:"Courses with a certificate", c_h:"Courses", c_p:"Learn at your own pace: short lessons, a quiz after each one and a final exam. Each course gives a numbered certificate; a programme of several courses gives a SkillBridge diploma.",
+  k_cert:"Certificate", k_id:"Diploma", hours_short:"ac. h", lessons_short:"lessons", exam_word:"exam", exam_q:"exam questions", q_short:"q.",
+  start_course:"Start course", continue:"Continue", all_courses:"All courses", verify_btn:"Verify a document", program_eye:"Qualification programme", program_courses:"Courses",
+  cert_legal:"SkillBridge certificates and diplomas confirm completion of training on the platform. They are not state-issued education documents.",
+  syllabus:"Course outline", final_exam:"Final exam", exam_locked:"after all lessons", pass_rule:"A lesson counts when you answer 70% of its quiz correctly. The exam also needs 70%.",
+  progress:"Lessons done", open_cert:"Open certificate", open_id:"Open diploma", go_exam:"Go to the exam", in_program:"Part of the programme:",
+  learn_login_h:"Log in to learn", learn_login_p:"Logging in with Telegram keeps your progress and certificates in your account.",
+  not_found:"Page not found.", lesson:"Lesson", prev:"Back", next:"Next lesson", check_yourself:"Check yourself", check:"Check",
+  lesson_done:"Lesson complete.", lesson_quiz_hint:"Answer the questions to complete the lesson.", lesson_retry:"{r} of {t} correct. Reread the lesson and try again.",
+  right:"Correct", wrong:"Incorrect", answer_all:"Please answer every question.",
+  exam_already:"You've already passed this exam.", exam_not_ready:"The exam opens once you finish every lesson.", back_to_course:"Back to course",
+  no_attempts:"No attempts left today. Try again tomorrow.", exam_rules:"{n} questions. You need 70% correct for the certificate. Attempts left today: {a}.",
+  cert_name:"Full name for the certificate", cert_name_hint:"It is printed exactly like this and can't be changed later.", cert_name_req:"Please enter your full name for the certificate.",
+  finish_exam:"Finish exam", exam_passed:"Exam passed: {s}%. Your certificate is ready.", exam_failed:"Score {s}%, 70% needed. Review the lessons and try again. Attempts left today: {a}.",
+  doc_cert:"CERTIFICATE", doc_id:"DIPLOMA", doc_confirms:"This is to certify that", doc_course:"has completed the course and passed the final exam",
+  doc_program:"has completed the qualification programme", acad_hours:"ac. h", doc_volume:"volume", doc_score:"final score", doc_date:"date of issue",
+  doc_note:"Verify this document at {u}", doc_sign:"Head of platform", doc_signer:"Iso Saidov",
+  verify_ok:"Valid document: No. {c}", verify_revoked:"This document has been revoked.", verify_h:"Verify a document", verify_p:"Enter the certificate or diploma number, e.g. SB-2026-XXXXXXXX.",
+  verify_go:"Verify", verify_none:"No document with number {c} was found.", print_pdf:"Download PDF / print", copy_link:"Copy link", copied:"Link copied",
+  demo_cert:"Demo: the document isn't saved in the preview. On the site it's stored and verifiable by number.",
+  cert_revoked:"Revoked", t_learning:"Learning", my_certs:"My documents", no_certs:"No certificates yet: complete a course and pass its exam.",
+  my_courses:"My courses", no_courses:"You haven't started a course yet.", adm_certs:"Issued documents", adm_revoke:"Revoke", adm_restore:"Restore", certs_n:"documents",
+  login:"Log in", cabinet:"Account", catalog:"Home", logout:"Log out",
+  n_tracks:"Tracks", n_how:"How it works", n_people:"Specialists", n_b2b:"For companies",
+  eyebrow:"Learning → certificate → remote work",
+  h1:"Work without moving away, through skills",
+  lead:"SkillBridge helps you learn a digital profession, build a portfolio and start taking remote orders. Short lessons, mentors and a peer group, from the first lesson to the first income.",
+  cta_learn:"Enrol in a course", cta_hire:"Find a specialist",
+  p1:"Diagnostics", p1d:"skills and niche in 15 min", p2:"Learning", p2d:"10–20 minute lessons", p3:"Certificate", p3d:"prep for international ones", p4:"Orders", p4d:"start working remotely",
+  tr_h:"Learning tracks", tr_p:"{n} tracks in {g} areas. The six main ones were chosen by demand on global freelance platforms and by the income you can realistically reach remotely.",
+  tr_search:"Search tracks: Python, SMM, Excel, logo…", tr_more:"Show all", tr_less:"Show less", tr_main:"Main",
+  tr_none:"Nothing found. Leave a request and we'll pick a track together.",
+  s_ph:"What do you want to learn or who are you looking for? E.g. Python, logo, Excel", s_tracks:"Tracks", s_people:"Specialists",
+  s_none:"Nothing found. Try another word.", s_all:"All matching tracks",
+  tr_dur:"Duration", tr_cert:"Prepares for", tr_inc:"Income range", tr_btn:"Enrol",
+  tr_note:"Duration, certification and income range are given for the main tracks. The income range is a market estimate for remote work, not a guarantee.",
+  st_h:"How the learning works", st_p:"Every track follows one structure: diagnostics → theory → practice → income. Each stage ends with a measurable result.",
+  st_out:"Result",
+  f1:"Skill diagnostics", f1d:"In 15 minutes we find your level, a suitable niche and build a plan.",
+  f2:"Short lessons", f2d:"10–20 minute modules that work on a phone and on a slow connection.",
+  f3:"Mentors", f3d:"Work reviews, one-to-one sessions and group workshops.",
+  f4:"Learning in a group", f4d:"Groups of 15–20 people, with a milestone every two weeks.",
+  f5:"English in every track", f5d:"Learn in a language you understand, earn in English.",
+  f6:"Getting orders", f6d:"A profile on freelance platforms and direct orders through the SkillBridge catalog.",
+  au_h:"Who it's for",
+  a1:"Young people 18–34", a1d:"Out of work or underpaid: a skill leads to a first income in 3–6 months.",
+  a2:"People about to leave for work abroad", a2d:"Try earning at home first, at least as much as abroad.",
+  a3:"Returning migrants", a3d:"Work experience and language turn into a remote profession.",
+  a4:"Women", a4d:"Work from home without moving or leaving family.",
+  a5:"Companies", a5d:"Staff training and hiring trained specialists.",
+  pp_h:"Specialists", pp_p:"Graduates and experienced, checked specialists. Pick one and order the work.",
+  search:"Search: logo, SQL, Reels…", nobody:"No one found. Try another word or track.",
+  empty_catalog:"The catalog is growing. If you're a specialist, fill in the profile in your account.",
+  order:"Order", portfolio:"Work", sample:"Example",
+  order_h:"Order work", login_to_order:"Log in with Telegram to place an order. It takes a couple of seconds.",
+  f_spec:"Specialist", any_spec:"Any, help me choose", f_task:"What needs to be done", f_budget:"Budget", f_deadline:"Deadline",
+  f_contact:"How to reach you", send_order:"Send order", req_order:"Describe the task and add a contact.",
+  order_sent:"Order sent. Track it in your account; updates come on Telegram.", to_cabinet:"Open account",
+  b2b_h:"For companies", b2b_p:"Digital specialists for your team: we train your staff or find ready ones.",
+  b1:"Corporate training", b1d:"Team access to courses, progress tracking and reports for managers.",
+  b2:"Hiring graduates", b2d:"We match checked specialists to your task, per project or full time.",
+  b3:"Outstaffing", b3d:"Remote specialists work in your team while we handle the hiring.",
+  b_company:"Company", b_name:"Your name", b_contact:"Phone, Telegram or email", b_msg:"What you need", b_send:"Send request",
+  b_req:"Please add your name and contact.", b_sent:"Thank you! We'll get back to you within a working day.",
+  e_h:"Enrol in a course", e_p:"Leave a request: we'll contact you, run the diagnostics and help pick a track.",
+  e_name:"Name", e_contact:"Phone or Telegram", e_track:"Track", e_track_any:"Not sure yet, help me choose",
+  e_level:"Your level", e_l0:"From scratch", e_l1:"Some basic skills", e_l2:"Already working in this field",
+  e_eng:"English", e_city:"City", e_msg:"Comment", e_send:"Enrol",
+  e_req:"Please add your name and contact.", e_sent:"Request received! We'll contact you and invite you to the diagnostics.",
+  demo_note:"This is a preview: requests aren't sent from here. On the published site they go straight to Telegram.",
+  demo_login:"Telegram login works on the published site.",
+  login_h:"Log in to SkillBridge", login_p:"Log in with Telegram: your account is created automatically, no password needed.",
+  login_failed:"Couldn't log in. Please try again.", no_bot:"Telegram login isn't set up yet (BOT_USERNAME is missing).",
+  t_orders:"My orders", t_profile:"Specialist profile", t_admin:"Admin",
+  my_orders:"Orders I placed", no_my_orders:"You haven't ordered anything yet.", forme:"Orders for me", no_forme:"No orders yet.",
+  spec_not_set:"Specialist being matched", client:"Client", contact:"Contact", budget:"Budget", deadline:"Deadline", created:"Created",
+  a_accept:"Accept", a_decline:"Decline", a_done:"Mark done", a_cancel:"Cancel",
+  st_new:"New", st_accepted:"In progress", st_declined:"Declined", st_done:"Done", st_cancelled:"Cancelled",
+  ps_pending:"Under review", ps_approved:"Published", ps_rejected:"Rejected",
+  ls_new:"New", ls_contacted:"Contacted", ls_archived:"Archived",
+  p_intro:"Fill in your profile. Once checked, you'll appear in the catalog and start getting orders.",
+  p_name:"Name", p_title:"Profession", p_title_ph:"For example: UX/UI designer", p_cat:"Track", p_skills:"Skills and experience",
+  p_price:"Price from", p_city:"City", p_portfolio:"Work samples (link)", p_save:"Send for review",
+  p_req:"Please fill in name, profession and skills.", p_saved:"Profile sent for review.", p_status:"Profile status",
+  adm_leads:"Course and company requests", adm_noleads:"No new requests.", adm_contacted:"Contacted", adm_archive:"Archive",
+  k_learn:"Course", k_b2b:"Company",
+  adm_pending:"Profiles to review", adm_none:"No new profiles.", adm_orders:"All orders", adm_approve:"Approve", adm_reject:"Reject",
+  adm_assign:"Assign", adm_pick:"Choose a specialist", users:"users", specialists:"specialists", orders:"orders", leads:"new requests",
+  loading:"Loading…", error:"Something went wrong. Please reload the page.", need_login:"Your session has ended. Please log in again.",
+  foot_r:"Digital skills training and remote work"
+ }
+};
+var lang = "ru";
+try { var sl = localStorage.getItem("sb-lang"); if (sl === "ru" || sl === "en") lang = sl; } catch (e) {}
+function t(k) { return (I18N[lang] && I18N[lang][k]) || I18N.ru[k] || k; }
+function L(o) { return o[lang] || o.ru; }
+function catName(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i][lang]; return id; }
+
+function h(tag, attrs) {
+  var e = document.createElement(tag);
+  if (attrs) for (var k in attrs) {
+    var v = attrs[k];
+    if (v == null || v === false) continue;
+    if (k === "class") e.className = v;
+    else if (k === "text") e.textContent = v;
+    else if (k.slice(0, 2) === "on") e.addEventListener(k.slice(2), v);
+    else if (k === "value") e.value = v;
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (var i = 2; i < arguments.length; i++) add(e, arguments[i]);
+  return e;
+}
+function add(e, c) {
+  if (c == null || c === false) return;
+  if (Array.isArray(c)) { c.forEach(function (x) { add(e, x); }); return; }
+  e.appendChild(typeof c === "object" ? c : document.createTextNode(String(c)));
+}
+async function api(path, body) {
+  if (DEMO) {
+    var dl = demoLearning(path, body);
+    if (dl) return dl;
+    if (path === "/api/me") return { user: null };
+    if (path === "/api/specialists") return { specialists: SAMPLE };
+    if (path === "/api/leads") return { ok: true };
+    var de = new Error("demo"); de.status = 401; throw de;
+  }
+  var opt = body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) };
+  var r = await fetch(path, opt), data = {};
+  try { data = await r.json(); } catch (e) {}
+  if (!r.ok) { var err = new Error(data.error || ("HTTP " + r.status)); err.status = r.status; throw err; }
+  return data;
+}
+
+var me = { user: null }, specialists = null, cat = "all", query = "", cabTab = "learning", page = "home";
+var app = document.getElementById("app");
+
+var params = [];
+function currentPath() {
+  if (!DEMO) return location.pathname;
+  var hs = location.hash;
+  if (hs.indexOf("#/") === 0) return hs.slice(1);
+  return hs === "#cabinet" ? "/cabinet" : "/";
+}
+function link(path) { return DEMO ? (path === "/" ? "#top" : "#" + path) : path; }
+function route() {
+  var path = currentPath(), m;
+  params = [];
+  if (path === "/cabinet") page = "cabinet";
+  else if (path === "/courses") page = "courses";
+  else if (path === "/verify") page = "verify";
+  else if ((m = path.match(/^\/course\/(\w+)$/))) { page = "course"; params = [m[1]]; }
+  else if ((m = path.match(/^\/learn\/(\w+)\/(\d+)$/))) { page = "learn"; params = [m[1], Number(m[2])]; }
+  else if ((m = path.match(/^\/exam\/(\w+)$/))) { page = "exam"; params = [m[1]]; }
+  else if ((m = path.match(/^\/cert\/([A-Z0-9-]+)$/))) { page = "cert"; params = [m[1]]; }
+  else page = "home";
+}
+async function boot() {
+  route();
+  try { me = await api("/api/me"); } catch (e) { me = { user: null }; }
+  render();
+  if (page === "home" && location.hash && location.hash.length > 1) {
+    var target = document.getElementById(location.hash.slice(1));
+    if (target) setTimeout(function () { target.scrollIntoView(); }, 60);
+  }
+}
+window.addEventListener("hashchange", function () {
+  var was = page + params.join("/"); route();
+  if (was !== page + params.join("/")) { render(); window.scrollTo(0, 0); }
+});
+
+function render() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.lang === lang)); });
+  var nav = document.getElementById("nav");
+  nav.textContent = page === "cabinet" ? t("catalog") : (me.user ? t("cabinet") : t("login"));
+  nav.href = page === "cabinet" ? link("/") : (DEMO ? "#cabinet" : "/cabinet");
+  document.getElementById("logo").href = link("/");
+  var links = document.getElementById("nav-links");
+  links.textContent = "";
+  [["courses", "n_courses"], ["tracks", "n_tracks"], ["people", "n_people"], ["b2b", "n_b2b"]].forEach(function (x) {
+    var hrefTo = x[0] === "courses" ? link("/courses") : (page === "home" ? "#" + x[0] : link("/") + (DEMO ? "" : "#" + x[0]));
+    links.append(h("a", { href: hrefTo, text: t(x[1]) }));
+  });
+  document.getElementById("foot-r").textContent = t("foot_r");
+  app.textContent = "";
+  var views = { cabinet: renderCabinet, courses: renderCourses, course: renderCourse, learn: renderLesson, exam: renderExam, cert: renderCert, verify: renderVerify };
+  (views[page] || renderHome)();
+}
+document.querySelectorAll(".lang button").forEach(function (b) {
+  b.addEventListener("click", function () { lang = b.dataset.lang; try { localStorage.setItem("sb-lang", lang); } catch (e) {} render(); });
+});
+
+function loginWidget(next) {
+  var wrap = h("div", { class: "tgw" });
+  if (DEMO) { wrap.append(h("p", { class: "demo", text: t("demo_login") })); return wrap; }
+  if (!BOT || BOT.indexOf("__") === 0) { wrap.append(h("p", { class: "err", text: t("no_bot") })); return wrap; }
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://telegram.org/js/telegram-widget.js?22";
+  s.setAttribute("data-telegram-login", BOT);
+  s.setAttribute("data-size", "large");
+  s.setAttribute("data-radius", "8");
+  s.setAttribute("data-request-access", "write");
+  s.setAttribute("data-lang", lang);
+  s.setAttribute("data-auth-url", location.origin + "/auth/telegram?next=" + encodeURIComponent(next));
+  wrap.appendChild(s);
+  return wrap;
+}
+function sec(id, head, body) {
+  return h("section", { id: id }, h("div", { class: "wrap" }, head, body));
+}
+function secHead(title, text, eyebrow) {
+  return h("div", { class: "sec-head" }, eyebrow ? h("span", { class: "eyebrow", text: eyebrow }) : null, h("h2", { text: title }), text ? h("p", { text: text }) : null);
+}
+
+// ---------------- home ----------------
+function renderHome() {
+  app.append(h("div", { class: "wrap hero", id: "top" },
+    h("span", { class: "eyebrow", text: t("eyebrow") }),
+    h("h1", { text: t("h1") }),
+    h("p", { class: "lead", text: t("lead") }),
+    h("div", { class: "ctas" },
+      h("a", { class: "btn btn-primary", href: "#enrol", text: t("cta_learn") }),
+      h("a", { class: "btn btn-line", href: "#people", text: t("cta_hire") })),
+    heroSearch(),
+    h("ol", { class: "path" },
+      [1, 2, 3, 4].map(function (n) { return h("li", null, h("span", { class: "n", text: "0" + n }), h("b", { text: t("p" + n) }), h("span", { text: t("p" + n + "d") })); }))));
+
+  var cbox = h("div");
+  app.append(sec("courses", h("div", { class: "sec-head" }, h("span", { class: "eyebrow", text: t("c_eye") }), h("h2", { text: t("c_h") }), h("p", { text: t("c_p") })), cbox));
+  fillCourses(cbox, true);
+
+  renderTracks();
+
+  // stages + features
+  var stages = h("ol", { class: "stages" });
+  STAGES.forEach(function (s, i) {
+    stages.append(h("li", { class: "stage" },
+      h("div", { class: "when" }, h("b", { text: (i + 1) + ". " + L(s.t) }), L(s.when)),
+      h("p", { text: L(s.d) }),
+      h("div", { class: "out" }, h("small", { text: t("st_out") }), L(s.o))));
+  });
+  var feats = h("div", { class: "features" }, [1, 2, 3, 4, 5, 6].map(function (n) {
+    return h("div", { class: "feature" }, h("h3", { text: t("f" + n) }), h("p", { text: t("f" + n + "d") }));
+  }));
+  app.append(sec("how", secHead(t("st_h"), t("st_p")), [stages, feats]));
+
+  // audience
+  app.append(sec("who", secHead(t("au_h")), h("div", { class: "audience" }, [1, 2, 3, 4, 5].map(function (n) {
+    return h("div", { class: "aud" }, h("h3", { text: t("a" + n) }), h("p", { text: t("a" + n + "d") }));
+  }))));
+
+  // specialists
+  renderPeople();
+
+  // companies
+  app.append(sec("b2b", null, h("div", { class: "split" },
+    h("div", { style: "display:grid;gap:18px" }, secHead(t("b2b_h"), t("b2b_p")),
+      h("ul", { class: "points" }, [1, 2, 3].map(function (n) { return h("li", null, h("h3", { text: t("b" + n) }), h("p", { text: t("b" + n + "d") })); }))),
+    leadForm("b2b"))));
+
+  // enrol
+  app.append(sec("enrol", null, h("div", { class: "split" },
+    secHead(t("e_h"), t("e_p")),
+    leadForm("learn"))));
+}
+
+
+// ---------------- search ----------------
+var trGroup = "main", trQuery = "", trOpen = false;
+function heroSearch() {
+  var box = h("div", { class: "hsearch" });
+  var res = h("div", { class: "hres", hidden: true, "aria-live": "polite" });
+  var input = h("input", { type: "search", class: "hsinput", placeholder: t("s_ph"), "aria-label": t("s_ph"), autocomplete: "off" });
+  function draw() {
+    var q = input.value.trim();
+    res.textContent = "";
+    if (!q) { res.hidden = true; return; }
+    var tr = TRACKS.filter(function (x) { return hit(trackHay(x), q); });
+    var sp = (specialists || []).filter(function (x) { return hit(specHay(x), q); });
+    res.hidden = false;
+    if (!tr.length && !sp.length) { res.append(h("p", { class: "hint", text: t("s_none") })); return; }
+    if (tr.length) {
+      res.append(h("p", { class: "hlabel", text: t("s_tracks") + " · " + tr.length }));
+      tr.slice(0, 6).forEach(function (x) {
+        res.append(h("button", { type: "button", class: "hitem", onclick: function () { showTrack(x.id); } },
+          h("b", { text: L(x) }), h("span", { text: groupName(x.group) + " · " + L(x.sk) })));
+      });
+      if (tr.length > 6) res.append(h("button", { type: "button", class: "hmore", text: t("s_all") + " (" + tr.length + ")",
+        onclick: function () { trQuery = q; trGroup = "all"; trOpen = true; drawTracks(); document.getElementById("tracks").scrollIntoView(); } }));
+    }
+    if (sp.length) {
+      res.append(h("p", { class: "hlabel", text: t("s_people") + " · " + sp.length }));
+      sp.slice(0, 4).forEach(function (x) {
+        res.append(h("button", { type: "button", class: "hitem", onclick: function () { orderFrom(x.user_id); } },
+          h("b", { text: x.name + " — " + x.title }), h("span", { text: [catName(x.category), x.city, x.price].filter(Boolean).join(" · ") })));
+      });
+    }
+  }
+  input.addEventListener("input", draw);
+  input.addEventListener("keydown", function (e) { if (e.key === "Escape") { input.value = ""; draw(); } });
+  box.append(input, res);
+  return box;
+}
+function showTrack(id) {
+  trQuery = ""; trGroup = "all"; trOpen = true; drawTracks();
+  var card = document.getElementById("track-" + id);
+  if (card) {
+    card.scrollIntoView({ block: "center" });
+    card.classList.add("flash");
+    setTimeout(function () { card.classList.remove("flash"); }, 1600);
+  }
+}
+
+var drawTracks = function () {};
+function renderTracks() {
+  var chips = h("div", { class: "chips", role: "group" });
+  var grid = h("div", { class: "tracks" });
+  var more = h("div", { class: "more" });
+  var empty = h("p", { class: "empty", hidden: true, text: t("tr_none") });
+  var input = h("input", { type: "search", class: "search", placeholder: t("tr_search"), "aria-label": t("tr_search"), value: trQuery,
+    oninput: function (e) { trQuery = e.target.value; if (trQuery.trim()) trGroup = "all"; drawTracks(); } });
+  drawTracks = function () {
+    if (input.value !== trQuery) input.value = trQuery;
+    chips.textContent = "";
+    [{ id: "main", ru: "Основные", en: "Main" }, { id: "all", ru: "Все", en: "All" }].concat(GROUPS).forEach(function (g) {
+      var n = g.id === "main" ? TRACKS.filter(function (x) { return x.f; }).length : g.id === "all" ? TRACKS.length : TRACKS.filter(function (x) { return x.group === g.id; }).length;
+      chips.append(h("button", { type: "button", class: "chip", "aria-pressed": String(trGroup === g.id), text: L(g) + " " + n,
+        onclick: function () { trGroup = g.id; trOpen = false; drawTracks(); } }));
+    });
+    var list = TRACKS.filter(function (x) {
+      if (trGroup === "main" && !x.f) return false;
+      if (trGroup !== "main" && trGroup !== "all" && x.group !== trGroup) return false;
+      return !trQuery.trim() || hit(trackHay(x), trQuery);
+    });
+    list.sort(function (a, b) { return (b.f ? 1 : 0) - (a.f ? 1 : 0); });
+    var LIMIT = 12, shown = trOpen || trQuery.trim() ? list : list.slice(0, LIMIT);
+    grid.textContent = "";
+    shown.forEach(function (tr) { grid.append(trackCard(tr)); });
+    empty.hidden = list.length > 0;
+    more.textContent = "";
+    if (list.length > LIMIT && !trQuery.trim()) more.append(h("button", { type: "button", class: "btn btn-line", text: trOpen ? t("tr_less") : t("tr_more") + " (" + list.length + ")",
+      onclick: function () { trOpen = !trOpen; drawTracks(); if (!trOpen) document.getElementById("tracks").scrollIntoView(); } }));
+  };
+  app.append(sec("tracks", secHead(t("tr_h"), t("tr_p").replace("{n}", TRACKS.length).replace("{g}", GROUPS.length)),
+    [h("div", { class: "tools" }, input, chips), grid, empty, more, h("p", { class: "note", text: t("tr_note") })]));
+  drawTracks();
+}
+function trackCard(tr) {
+  return h("article", { class: "track" + (tr.f ? " main" : ""), id: "track-" + tr.id },
+    h("div", { class: "thead" }, h("span", { class: "tgroup", text: groupName(tr.group) }), tr.f ? h("span", { class: "badge b-accepted", text: t("tr_main") }) : null),
+    h("h3", { text: L(tr) }),
+    h("p", { class: "skills", text: L(tr.sk) }),
+    tr.f ? h("dl", { class: "facts" },
+      h("div", null, h("dt", { text: t("tr_dur") }), h("dd", { text: L(tr.f.dur) })),
+      h("div", null, h("dt", { text: t("tr_cert") }), h("dd", { text: tr.f.cert })),
+      h("div", null, h("dt", { text: t("tr_inc") }), h("dd", { text: L(tr.f.inc) }))) : null,
+    h("div", null, h("a", { class: "btn btn-line btn-sm", href: "#enrol", text: t("tr_btn"),
+      onclick: function () { pickTrack = tr.id; var s = document.getElementById("e-track"); if (s) s.value = tr.id; } })));
+}
+
+var pickTrack = "";
+function leadForm(kind) {
+  var err = h("p", { class: "err", "aria-live": "polite" }), done = h("p", { class: "ok", hidden: true });
+  var btn = h("button", { class: "btn btn-primary", type: "submit", text: kind === "b2b" ? t("b_send") : t("e_send") });
+  var hp = h("input", { class: "hp", name: "website", tabindex: "-1", autocomplete: "off", "aria-hidden": "true" });
+  var fields;
+  if (kind === "b2b") {
+    fields = [
+      h("div", { class: "row" },
+        h("label", null, t("b_company"), h("input", { name: "company", maxlength: "120" })),
+        h("label", null, t("b_name"), h("input", { name: "name", maxlength: "80", autocomplete: "name" }))),
+      h("label", null, t("b_contact"), h("input", { name: "contact", maxlength: "120" })),
+      h("label", null, t("b_msg"), h("textarea", { name: "message", maxlength: "1500" }))];
+  } else {
+    var tsel = h("select", { name: "track", id: "e-track" }, h("option", { value: "", text: t("e_track_any") }),
+      GROUPS.map(function (g) {
+        return h("optgroup", { label: L(g) }, TRACKS.filter(function (tr) { return tr.group === g.id; }).map(function (tr) { return h("option", { value: tr.id, text: L(tr) }); }));
+      }));
+    tsel.value = pickTrack;
+    tsel.addEventListener("change", function () { pickTrack = tsel.value; });
+    fields = [
+      h("div", { class: "row" },
+        h("label", null, t("e_name"), h("input", { name: "name", maxlength: "80", autocomplete: "name" })),
+        h("label", null, t("e_contact"), h("input", { name: "contact", maxlength: "120", placeholder: "+992 / @username" }))),
+      h("label", null, t("e_track"), tsel),
+      h("div", { class: "row" },
+        h("label", null, t("e_level"), h("select", { name: "level" }, ["e_l0", "e_l1", "e_l2"].map(function (k) { return h("option", { value: I18N.ru[k], text: t(k) }); }))),
+        h("label", null, t("e_eng"), h("select", { name: "english" }, ["—", "A1", "A2", "B1", "B2", "C1+"].map(function (x) { return h("option", { value: x === "—" ? "" : x, text: x }); })))),
+      h("label", null, t("e_city"), h("input", { name: "city", maxlength: "60" })),
+      h("label", null, t("e_msg"), h("textarea", { name: "message", maxlength: "1500" }))];
+  }
+  var form = h("form", { class: "formbox", novalidate: true }, DEMO ? h("p", { class: "demo", text: t("demo_note") }) : null, fields, hp, err, done, h("div", null, btn));
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var data = { kind: kind, website: hp.value };
+    form.querySelectorAll("input[name],select[name],textarea[name]").forEach(function (f) { if (f !== hp) data[f.name] = f.value.trim(); });
+    if (!data.name || !data.contact) { err.textContent = kind === "b2b" ? t("b_req") : t("e_req"); return; }
+    if (data.track) data.track_name = trackName(data.track);
+    err.textContent = ""; btn.disabled = true;
+    try {
+      await api("/api/leads", data);
+      form.querySelectorAll("input,textarea").forEach(function (f) { f.value = ""; });
+      done.hidden = false; done.textContent = kind === "b2b" ? t("b_sent") : t("e_sent");
+    } catch (ex) { err.textContent = t("error"); }
+    finally { btn.disabled = false; }
+  });
+  return form;
+}
+
+function renderPeople() {
+  var grid = h("div", { class: "grid" }), empty = h("p", { class: "empty", hidden: true });
+  var chips = h("div", { class: "chips", role: "group" });
+  var search = h("input", { class: "search", type: "search", placeholder: t("search"), "aria-label": t("search"), value: query,
+    oninput: function (e) { query = e.target.value.trim(); fillGrid(); } });
+  function drawChips() {
+    chips.textContent = "";
+    CATS.forEach(function (c) {
+      chips.append(h("button", { type: "button", class: "chip", "aria-pressed": String(c.id === cat), text: c[lang],
+        onclick: function () { cat = c.id; drawChips(); fillGrid(); } }));
+    });
+  }
+  function matches(p) {
+    if (cat !== "all" && p.category !== cat) return false;
+    if (!query) return true;
+    return hit(specHay(p), query);
+  }
+  function fillGrid() {
+    grid.textContent = "";
+    if (!specialists) { grid.append(h("p", { class: "hint", text: t("loading") })); return; }
+    var list = specialists.filter(matches);
+    list.forEach(function (p) {
+      grid.append(h("article", { class: "card" },
+        h("div", { class: "top" }, h("div", { class: "ava", text: (p.name || "?").charAt(0).toUpperCase() }),
+          h("div", { class: "who" }, h("h3", { text: p.name }), h("p", { class: "role", text: p.title }))),
+        h("p", { class: "skills", text: p.skills.length > 160 ? p.skills.slice(0, 160) + "…" : p.skills }),
+        h("div", { class: "meta" }, h("span", { text: [catName(p.category), p.city].filter(Boolean).join(" · ") }), p.price ? h("span", { class: "price", text: p.price }) : null),
+        h("div", { class: "meta" },
+          p.portfolio ? h("a", { href: p.portfolio, target: "_blank", rel: "noopener nofollow", text: t("portfolio") }) : h("span", { class: "sample", text: p.sample ? t("sample") : "" }),
+          h("button", { type: "button", class: "btn btn-primary btn-sm", text: t("order"), onclick: function () { orderFrom(p.user_id); } }))));
+    });
+    empty.hidden = list.length > 0;
+    empty.textContent = specialists.length ? t("nobody") : t("empty_catalog");
+  }
+  drawChips();
+  var orderBox = h("div", { class: "formbox", style: "max-width:720px" });
+  app.append(sec("people", secHead(t("pp_h"), t("pp_p")),
+    [h("div", { class: "tools" }, search, chips), grid, empty,
+     h("div", { id: "order", style: "display:grid;gap:12px;margin-top:28px" }, h("h3", { text: t("order_h") }), orderBox)]));
+  fillGrid();
+  fillOrderBox(orderBox);
+  if (!specialists) api("/api/specialists").then(function (d) { specialists = d.specialists; fillGrid(); fillOrderBox(orderBox); })
+    .catch(function () { specialists = []; fillGrid(); });
+}
+var pickedSpec = "";
+function orderFrom(id) {
+  pickedSpec = String(id);
+  var sel = document.getElementById("o-spec");
+  if (sel) sel.value = pickedSpec;
+  document.getElementById("order").scrollIntoView();
+  var task = document.getElementById("o-task");
+  if (task) task.focus({ preventScroll: true });
+}
+function fillOrderBox(box) {
+  box.textContent = "";
+  if (!me.user) { box.append(h("p", { class: "hint", text: t("login_to_order") }), loginWidget("/#order")); return; }
+  var sel = h("select", { id: "o-spec" }, h("option", { value: "", text: t("any_spec") }));
+  (specialists || []).forEach(function (p) { if (p.user_id !== me.user.id) sel.append(h("option", { value: String(p.user_id), text: p.name + " — " + p.title })); });
+  sel.value = pickedSpec;
+  sel.addEventListener("change", function () { pickedSpec = sel.value; });
+  var err = h("p", { class: "err", "aria-live": "polite" }), done = h("div", { class: "ok", hidden: true });
+  var btn = h("button", { class: "btn btn-primary", type: "submit", text: t("send_order") });
+  var form = h("form", { novalidate: true },
+    h("label", null, t("f_spec"), sel),
+    h("label", null, t("f_task"), h("textarea", { id: "o-task", maxlength: "3000" })),
+    h("div", { class: "row" },
+      h("label", null, t("f_budget"), h("input", { id: "o-budget", placeholder: "1 500 TJS / $150", maxlength: "60" })),
+      h("label", null, t("f_deadline"), h("input", { id: "o-deadline", placeholder: "25.10.2026", maxlength: "60" }))),
+    h("label", null, t("f_contact"), h("input", { id: "o-contact", maxlength: "120", value: me.user.username ? "@" + me.user.username : "" })),
+    err, h("div", null, btn));
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var task = form.querySelector("#o-task").value.trim(), contact = form.querySelector("#o-contact").value.trim();
+    if (!task || !contact) { err.textContent = t("req_order"); return; }
+    err.textContent = ""; btn.disabled = true;
+    try {
+      await api("/api/orders", { specialist_id: sel.value ? Number(sel.value) : null, task: task, contact: contact,
+        budget: form.querySelector("#o-budget").value, deadline: form.querySelector("#o-deadline").value });
+      form.hidden = true; done.hidden = false; pickedSpec = "";
+      done.textContent = "";
+      done.append(h("p", { text: t("order_sent") }), h("p", null, h("a", { href: "/cabinet", text: t("to_cabinet") })));
+    } catch (ex) { err.textContent = ex.status === 401 ? t("need_login") : t("error"); }
+    finally { btn.disabled = false; }
+  });
+  box.append(form, done);
+}
+
+
+// ---------------- courses & learning ----------------
+function esc(x) { return String(x).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function inline(x) {
+  return esc(x)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+}
+// Small markdown subset for lesson texts: ### headings, paragraphs, * / - lists, 1. lists, ``` code blocks, `code`, **bold**, [links](https://…).
+function md(text) {
+  var out = [], lines = String(text || "").split("\n"), i = 0;
+  while (i < lines.length) {
+    var ln = lines[i];
+    if (/^```/.test(ln)) {
+      var code = []; i++;
+      while (i < lines.length && !/^```/.test(lines[i])) code.push(lines[i++]);
+      i++; out.push("<pre><code>" + esc(code.join("\n")) + "</code></pre>"); continue;
+    }
+    if (/^###\s+/.test(ln)) { out.push("<h3>" + inline(ln.replace(/^###\s+/, "")) + "</h3>"); i++; continue; }
+    if (/^[*-]\s+/.test(ln)) {
+      var items = [];
+      while (i < lines.length && /^[*-]\s+/.test(lines[i])) items.push("<li>" + inline(lines[i++].replace(/^[*-]\s+/, "")) + "</li>");
+      out.push("<ul>" + items.join("") + "</ul>"); continue;
+    }
+    if (/^\d+\.\s+/.test(ln)) {
+      var oi = [];
+      while (i < lines.length && /^\d+\.\s+/.test(lines[i])) oi.push("<li>" + inline(lines[i++].replace(/^\d+\.\s+/, "")) + "</li>");
+      out.push("<ol>" + oi.join("") + "</ol>"); continue;
+    }
+    if (!ln.trim()) { i++; continue; }
+    var para = [];
+    while (i < lines.length && lines[i].trim() && !/^(```|###\s|[*-]\s|\d+\.\s)/.test(lines[i])) para.push(lines[i++]);
+    out.push("<p>" + inline(para.join(" ")) + "</p>");
+  }
+  var d = h("div", { class: "md" }); d.innerHTML = out.join(""); return d;
+}
+function ctitle(c) { return lang === "en" && c.title_en ? c.title_en : c.title; }
+function pct(a, b) { return b ? Math.round(a / b * 100) : 0; }
+function bar(a, b) { return h("div", { class: "bar2", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(b), "aria-valuenow": String(a) }, h("i", { style: "width:" + pct(a, b) + "%" })); }
+function needLoginBox(next) {
+  return h("div", { class: "formbox narrow" }, h("h2", { text: t("learn_login_h") }), h("p", { class: "hint", text: t("learn_login_p") }), loginWidget(next));
+}
+function errBox(e) { return h("p", { class: "err", text: e && e.status === 404 ? t("not_found") : e && e.status === 401 ? t("need_login") : t("error") }); }
+
+var coursesCache = null;
+function fillCourses(box, compact) {
+  box.textContent = "";
+  box.append(h("p", { class: "hint", text: t("loading") }));
+  api("/api/courses").then(function (d) {
+    coursesCache = d;
+    box.textContent = "";
+    var grid = h("div", { class: "crs" });
+    d.courses.forEach(function (c) {
+      var done = d.my[c.slug] || 0;
+      grid.append(h("article", { class: "track" },
+        h("div", { class: "thead" }, h("span", { class: "tgroup", text: c.track ? trackName(c.track) : t("all_tracks") }), h("span", { class: "badge b-accepted", text: t("k_cert") })),
+        h("h3", null, h("a", { href: link("/course/" + c.slug), text: ctitle(c) })),
+        h("p", { class: "skills", text: c.summary }),
+        h("div", { class: "cmeta" }, h("span", { text: c.level }), h("span", { text: c.hours + " " + t("hours_short") }), h("span", { text: c.lessons + " " + t("lessons_short") }), h("span", { text: t("exam_word") })),
+        done ? h("div", { style: "display:grid;gap:4px" }, bar(done, c.lessons), h("span", { class: "hint", text: done + " / " + c.lessons + " " + t("lessons_short") })) : null,
+        h("div", null, h("a", { class: "btn btn-primary btn-sm", href: link("/course/" + c.slug), text: done ? t("continue") : t("start_course") }))));
+    });
+    box.append(grid);
+    d.programs.forEach(function (pr) {
+      var hours = pr.courses.reduce(function (n, s) { var c = d.courses.find(function (x) { return x.slug === s; }); return n + (c ? c.hours : 0); }, 0);
+      box.append(h("div", { class: "prog" },
+        h("div", { class: "thead" }, h("span", { class: "eyebrow", text: t("program_eye") }), h("span", { class: "badge b-new", text: t("k_id") })),
+        h("h3", { text: lang === "en" && pr.title_en ? pr.title_en : pr.title }),
+        h("p", { class: "hint", text: pr.summary }),
+        h("p", { class: "hint" }, t("program_courses") + ": ", pr.courses.map(function (s, i) {
+          var c = d.courses.find(function (x) { return x.slug === s; });
+          return [i ? ", " : "", h("a", { href: link("/course/" + s), text: c ? ctitle(c) : s })];
+        }), " · " + hours + " " + t("hours_short"))));
+    });
+    box.append(h("div", { class: "actions", style: "margin-top:14px" },
+      compact ? h("a", { class: "btn btn-line btn-sm", href: link("/courses"), text: t("all_courses") }) : null,
+      h("a", { class: "btn btn-line btn-sm", href: link("/verify"), text: t("verify_btn") })));
+    box.append(h("p", { class: "note", text: t("cert_legal") }));
+  }).catch(function (e) { box.textContent = ""; box.append(errBox(e)); });
+}
+
+function renderCourses() {
+  var w = h("div", { class: "wrap page" });
+  app.append(w);
+  w.append(h("div", { class: "sec-head", style: "margin:0" }, h("span", { class: "eyebrow", text: t("c_eye") }), h("h1", { text: t("c_h"), style: "font-size:clamp(26px,3.6vw,36px)" }), h("p", { text: t("c_p") })));
+  var box = h("div"); w.append(box); fillCourses(box, false);
+}
+
+function renderCourse() {
+  var slug = params[0], w = h("div", { class: "wrap page" });
+  app.append(w);
+  w.append(h("p", { class: "hint", text: t("loading") }));
+  api("/api/courses/" + slug).then(function (d) {
+    var c = d.course, my = d.my, done = my ? my.passed : [];
+    var allDone = c.outline.every(function (l) { return done.indexOf(l.n) !== -1; });
+    var next = c.outline.find(function (l) { return done.indexOf(l.n) === -1; }) || c.outline[0];
+    w.textContent = "";
+    w.append(h("p", { class: "crumbs" }, h("a", { href: link("/courses"), text: t("c_h") }), " / ", ctitle(c)));
+    w.append(h("div", { class: "split", style: "align-items:start" },
+      h("div", { style: "display:grid;gap:12px" },
+        h("h1", { text: ctitle(c), style: "font-size:clamp(24px,3.4vw,34px)" }),
+        h("div", { class: "cmeta" }, h("span", { text: c.level }), h("span", { text: c.hours + " " + t("hours_short") }), h("span", { text: c.lessons + " " + t("lessons_short") }), h("span", { text: c.exam + " " + t("exam_q") }), c.track ? h("span", { text: trackName(c.track) }) : null),
+        h("p", { class: "lead", text: c.about }),
+        my ? h("div", { style: "display:grid;gap:6px;max-width:420px" }, bar(done.length, c.lessons), h("span", { class: "hint", text: t("progress") + ": " + done.length + " / " + c.lessons })) : null,
+        h("div", { class: "actions" },
+          my && my.certificate ? h("a", { class: "btn btn-primary", href: link("/cert/" + my.certificate), text: t("open_cert") }) :
+            h("a", { class: "btn btn-primary", href: link("/learn/" + c.slug + "/" + next.n), text: done.length ? t("continue") : t("start_course") }),
+          allDone && !(my && my.certificate) ? h("a", { class: "btn btn-line", href: link("/exam/" + c.slug), text: t("go_exam") }) : null),
+        !me.user && !DEMO ? h("p", { class: "hint", text: t("learn_login_p") }) : null,
+        d.programs.length ? h("p", { class: "hint" }, t("in_program") + " ", d.programs.map(function (pr) { return h("b", { text: lang === "en" && pr.title_en ? pr.title_en : pr.title }); })) : null),
+      h("div", { style: "display:grid;gap:10px" },
+        h("h2", { text: t("syllabus"), style: "font-size:18px" }),
+        h("ol", { class: "outline" },
+          c.outline.map(function (l) {
+            var ok = done.indexOf(l.n) !== -1;
+            return h("li", null, h("a", { href: link("/learn/" + c.slug + "/" + l.n) }, h("span", { class: "mark" + (ok ? " ok" : ""), text: ok ? "" : String(l.n) }),
+              h("span", { text: l.title }), l.quiz ? h("span", { class: "hint", style: "margin-left:auto", text: l.quiz + " " + t("q_short") }) : null));
+          }),
+          h("li", null, h(allDone ? "a" : "span", { class: allDone ? null : "row1", href: allDone ? link("/exam/" + c.slug) : null },
+            h("span", { class: "mark" + (my && my.certificate ? " ok" : ""), text: my && my.certificate ? "" : "★" }),
+            h("span", { text: t("final_exam") }), h("span", { class: "hint", style: "margin-left:auto", text: allDone ? c.exam + " " + t("q_short") : t("exam_locked") })))),
+        h("p", { class: "note", text: t("pass_rule") }))));
+  }).catch(function (e) { w.textContent = ""; w.append(errBox(e)); });
+}
+
+function quizBlock(questions, onSubmit, submitText, extra) {
+  var form = h("form", { class: "quiz", novalidate: true });
+  var items = questions.map(function (q, idx) {
+    var fs = h("fieldset", { class: "qitem" }, h("legend", { text: (idx + 1) + ". " }), h("span", { class: "qres" }));
+    fs.querySelector("legend").append(inline_text(q.q));
+    q.options.forEach(function (o, oi) {
+      fs.insertBefore(h("label", { class: "opt" }, h("input", { type: "radio", name: "q" + q.i, value: String(oi) }), inline_text(o)), fs.querySelector(".qres"));
+    });
+    form.append(fs);
+    return fs;
+  });
+  var err = h("p", { class: "err", "aria-live": "polite" });
+  var btn = h("button", { class: "btn btn-primary", type: "submit", text: submitText });
+  if (extra) form.append(extra);
+  form.append(err, h("div", null, btn));
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var answers = {}, missing = false;
+    questions.forEach(function (q) { var c = form.querySelector('input[name="q' + q.i + '"]:checked'); if (c) answers[q.i] = Number(c.value); else missing = true; });
+    if (missing) { err.textContent = t("answer_all"); return; }
+    err.textContent = ""; btn.disabled = true;
+    onSubmit(answers, items, err).finally(function () { btn.disabled = false; });
+  });
+  return form;
+}
+function inline_text(x) { var sp = h("span"); sp.innerHTML = inline(x); return sp; }
+
+function renderLesson() {
+  var slug = params[0], n = params[1], w = h("div", { class: "wrap page" });
+  app.append(w);
+  if (!me.user && !DEMO) { w.append(needLoginBox(currentPath())); return; }
+  w.append(h("p", { class: "hint", text: t("loading") }));
+  api("/api/courses/" + slug + "/lessons/" + n).then(function (d) {
+    var l = d.lesson, c = d.course, done = d.done || [];
+    w.textContent = "";
+    w.append(h("p", { class: "crumbs" }, h("a", { href: link("/courses"), text: t("c_h") }), " / ", h("a", { href: link("/course/" + c.slug), text: ctitle(c) }), " / " + t("lesson") + " " + n));
+    var outline = h("ol", { class: "outline" }, d.outline.map(function (x) {
+      var ok = done.indexOf(x.n) !== -1;
+      return h("li", null, h("a", { href: link("/learn/" + c.slug + "/" + x.n), "aria-current": x.n === n ? "page" : null },
+        h("span", { class: "mark" + (ok ? " ok" : ""), text: ok ? "" : String(x.n) }), h("span", { text: x.title })));
+    }));
+    var nextBtn = h("div", { class: "navrow" },
+      n > 1 ? h("a", { class: "btn btn-line", href: link("/learn/" + c.slug + "/" + (n - 1)), text: "← " + t("prev") }) : h("span"),
+      n < d.total ? h("a", { class: "btn btn-primary", href: link("/learn/" + c.slug + "/" + (n + 1)), text: t("next") + " →" })
+        : h("a", { class: "btn btn-primary", href: link("/exam/" + c.slug), text: t("go_exam") }));
+    var status = h("p", { class: d.passed ? "ok" : "hint", text: d.passed ? t("lesson_done") : (l.quiz.length ? t("lesson_quiz_hint") : "") });
+    var content = h("article", { class: "lesson" }, h("span", { class: "eyebrow", text: t("lesson") + " " + n + " / " + d.total }), h("h1", { text: l.title, style: "font-size:clamp(22px,3vw,30px)" }), md(l.body));
+    if (l.quiz.length) {
+      content.append(h("h2", { text: t("check_yourself"), style: "font-size:18px" }));
+      content.append(quizBlock(l.quiz, function (answers, items) {
+        return api("/api/courses/" + c.slug + "/lessons/" + n, { answers: answers }).then(function (r) {
+          items.forEach(function (fs, i) {
+            fs.classList.remove("right", "wrong"); fs.classList.add(r.results[i] ? "right" : "wrong");
+            fs.querySelector(".qres").textContent = r.results[i] ? t("right") : t("wrong");
+          });
+          status.className = r.passed ? "ok" : "err";
+          status.textContent = r.passed ? t("lesson_done") + " " + r.right + " / " + r.total : t("lesson_retry").replace("{r}", r.right).replace("{t}", r.total);
+          if (r.passed && done.indexOf(n) === -1) { done.push(n); var mk = outline.children[n - 1].querySelector(".mark"); mk.classList.add("ok"); mk.textContent = ""; }
+        }).catch(function () { status.className = "err"; status.textContent = t("error"); });
+      }, t("check")));
+    }
+    content.append(status, nextBtn);
+    w.append(h("div", { class: "learn" }, h("aside", null, outline), content));
+  }).catch(function (e) { w.textContent = ""; w.append(errBox(e)); });
+}
+
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
+
+function renderExam() {
+  var slug = params[0], w = h("div", { class: "wrap page" });
+  app.append(w);
+  if (!me.user && !DEMO) { w.append(needLoginBox(currentPath())); return; }
+  w.append(h("p", { class: "hint", text: t("loading") }));
+  api("/api/courses/" + slug + "/exam").then(function (d) {
+    var c = d.course;
+    w.textContent = "";
+    w.append(h("p", { class: "crumbs" }, h("a", { href: link("/courses"), text: t("c_h") }), " / ", h("a", { href: link("/course/" + c.slug), text: ctitle(c) }), " / " + t("final_exam")));
+    var box = h("article", { class: "lesson", style: "max-width:820px" }, h("span", { class: "eyebrow", text: t("final_exam") }), h("h1", { text: ctitle(c), style: "font-size:clamp(22px,3vw,30px)" }));
+    w.append(box);
+    if (d.certificate) { box.append(h("p", { class: "ok", text: t("exam_already") }), h("div", null, h("a", { class: "btn btn-primary", href: link("/cert/" + d.certificate), text: t("open_cert") }))); return; }
+    if (!d.ready) { box.append(h("p", { class: "hint", text: t("exam_not_ready") }), h("div", null, h("a", { class: "btn btn-line", href: link("/course/" + c.slug), text: t("back_to_course") }))); return; }
+    if (!d.attemptsLeft) { box.append(h("p", { class: "err", text: t("no_attempts") })); return; }
+    box.append(h("p", { class: "hint", text: t("exam_rules").replace("{n}", d.questions.length).replace("{a}", d.attemptsLeft) }));
+    var defName = me.user ? [me.user.first_name, me.user.last_name].filter(Boolean).join(" ") : "";
+    var nameInput = h("input", { id: "x-name", maxlength: "100", value: defName, autocomplete: "name" });
+    var nameBox = h("label", null, t("cert_name"), nameInput, h("span", { class: "hint", text: t("cert_name_hint") }));
+    var result = h("div");
+    box.append(quizBlock(shuffle(d.questions), function (answers, items, err) {
+      var fullName = nameInput.value.trim();
+      if (fullName.length < 3) { err.textContent = t("cert_name_req"); return Promise.resolve(); }
+      return api("/api/courses/" + c.slug + "/exam", { answers: answers, full_name: fullName }).then(function (r) {
+        result.textContent = "";
+        var score = Math.round(r.score * 100);
+        if (r.passed) {
+          box.querySelector("form").hidden = true;
+          result.append(h("div", { class: "ok", style: "display:grid;gap:10px" },
+            h("b", { text: t("exam_passed").replace("{s}", score) }),
+            h("div", { class: "actions" }, h("a", { class: "btn btn-primary", href: link("/cert/" + r.certificate), text: t("open_cert") }),
+              (r.programs || []).map(function (code) { return h("a", { class: "btn btn-line", href: link("/cert/" + code), text: t("open_id") }); }))));
+        } else {
+          result.append(h("p", { class: "err", text: t("exam_failed").replace("{s}", score).replace("{a}", r.attemptsLeft) }));
+        }
+        result.scrollIntoView({ block: "nearest" });
+      }).catch(function (e) { err.textContent = e.status === 429 ? t("no_attempts") : t("error"); });
+    }, t("finish_exam"), nameBox));
+    box.append(result);
+  }).catch(function (e) { w.textContent = ""; w.append(errBox(e)); });
+}
+
+function certDoc(c) {
+  var isId = c.kind === "program";
+  var origin = DEMO ? "skillbridge" : location.host;
+  return h("div", { class: "certdoc", role: "img", "aria-label": (isId ? t("k_id") : t("k_cert")) + " " + c.code },
+    h("div", { class: "frame" },
+      h("div", { class: "ctop" },
+        h("b", null, h("span", { html: true }), "SkillBridge"),
+        h("span", { text: "№ " + c.code })),
+      h("div", { class: "cmid" },
+        h("div", { class: "ckind", text: isId ? t("doc_id") : t("doc_cert") }),
+        h("div", { class: "ctext", text: t("doc_confirms") }),
+        h("div", { class: "cname", text: c.full_name }),
+        h("div", { class: "ctext", text: isId ? t("doc_program") : t("doc_course") }),
+        h("div", { class: "ctitle", text: "«" + c.title + "»" }),
+        isId && c.courses && c.courses.length ? h("div", { class: "ctext", text: c.courses.join(" · ") }) : null,
+        h("div", { class: "cfacts" },
+          h("div", null, h("b", { text: c.hours + " " + t("acad_hours") }), t("doc_volume")),
+          h("div", null, h("b", { text: c.score + "%" }), t("doc_score")),
+          h("div", null, h("b", { text: fmtDay(c.issued_at) }), t("doc_date")))),
+      h("div", { class: "cbot" },
+        h("div", { class: "cnote", text: t("doc_note").replace("{u}", origin + "/cert/" + c.code) }),
+        h("div", { class: "signbox" }, h("img", { class: "sigimg", src: SIGNATURE, alt: "" }), h("div", { class: "sigline" }),
+          h("div", { class: "signname", text: t("doc_signer") }), h("div", { class: "sign", text: t("doc_sign") })))),
+    c.revoked ? h("div", { class: "revoked", text: t("cert_revoked").toUpperCase() }) : null);
+}
+function fmtDay(s) { if (!s) return ""; var d = s.slice(0, 10).split("-"); return d[2] + "." + d[1] + "." + d[0]; }
+
+function renderCert() {
+  var code = params[0], w = h("div", { class: "wrap page" });
+  app.append(w);
+  w.append(h("p", { class: "hint", text: t("loading") }));
+  api("/api/certs/" + code).then(function (d) {
+    var c = d.certificate;
+    w.textContent = "";
+    var logo = '<svg viewBox="0 0 28 16" aria-hidden="true"><path d="M1 15H27" stroke="#18221d" stroke-width="2"/><path d="M4 15Q14 -1 24 15" fill="none" stroke="#1f6b4f" stroke-width="2"/></svg>';
+    var doc = certDoc(c);
+    doc.querySelector(".ctop b span").outerHTML = logo;
+    w.append(h("div", { class: "noprint", style: "display:grid;gap:8px" },
+      h("p", { class: c.revoked ? "err" : "ok", text: c.revoked ? t("verify_revoked") : t("verify_ok").replace("{c}", c.code) }),
+      DEMO ? h("p", { class: "demo", text: t("demo_cert") }) : null));
+    w.append(h("div", { class: "certwrap" }, doc));
+    var copyBtn = h("button", { type: "button", class: "btn btn-line", text: t("copy_link"), onclick: function () {
+      var u = location.href, b = this;
+      (navigator.clipboard ? navigator.clipboard.writeText(u) : Promise.reject()).then(function () { b.textContent = t("copied"); }, function () { b.textContent = u; });
+    } });
+    w.append(h("div", { class: "actions noprint", style: "justify-content:center" },
+      DEMO ? null : h("button", { type: "button", class: "btn btn-primary", text: t("print_pdf"), onclick: function () { window.print(); } }),
+      copyBtn, h("a", { class: "btn btn-line", href: link("/courses"), text: t("c_h") })));
+    w.append(h("p", { class: "note noprint", style: "text-align:center", text: t("cert_legal") }));
+  }).catch(function (e) {
+    w.textContent = "";
+    w.append(h("div", { class: "formbox narrow" }, h("h1", { text: t("verify_h"), style: "font-size:24px" }),
+      h("p", { class: "err", text: e && e.status === 404 ? t("verify_none").replace("{c}", code) : t("error") }), verifyForm()));
+  });
+}
+function verifyForm() {
+  var input = h("input", { placeholder: "SB-2026-XXXXXXXX", "aria-label": t("verify_h"), maxlength: "30" });
+  var f = h("form", { class: "verify" }, input, h("button", { class: "btn btn-primary", type: "submit", text: t("verify_go") }));
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var code = input.value.trim().toUpperCase().replace(/\s+/g, "");
+    if (!/^[A-Z0-9-]{6,30}$/.test(code)) return;
+    if (DEMO) location.hash = "#/cert/" + code; else location.href = "/cert/" + code;
+  });
+  return f;
+}
+function renderVerify() {
+  var w = h("div", { class: "wrap page" });
+  app.append(w);
+  w.append(h("div", { class: "formbox narrow" }, h("h1", { text: t("verify_h"), style: "font-size:24px" }), h("p", { class: "hint", text: t("verify_p") }), verifyForm()));
+}
+
+async function tabLearning(body) {
+  var d = await api("/api/learning");
+  body.textContent = "";
+  body.append(h("h2", { text: t("my_certs") }));
+  if (!d.certificates.length) body.append(h("p", { class: "empty", text: t("no_certs") }));
+  d.certificates.forEach(function (c) {
+    body.append(h("div", { class: "ocard" }, h("div", { class: "ohead" },
+      h("h3", null, h("a", { href: link("/cert/" + c.code), text: c.title })),
+      h("span", { class: "badge " + (c.kind === "program" ? "b-new" : "b-accepted"), text: c.kind === "program" ? t("k_id") : t("k_cert") })),
+      h("div", { class: "ometa" }, h("span", { text: "№ " + c.code }), h("span", { text: c.score + "%" }), h("span", { text: c.hours + " " + t("hours_short") }), h("span", { text: fmtDay(c.issued_at) }))));
+  });
+  body.append(h("h2", { text: t("my_courses"), style: "margin-top:12px" }));
+  if (!d.progress.length) body.append(h("p", { class: "empty" }, t("no_courses") + " ", h("a", { href: link("/courses"), text: t("c_h") })));
+  d.progress.forEach(function (c) {
+    body.append(h("div", { class: "ocard" },
+      h("div", { class: "ohead" }, h("h3", null, h("a", { href: link("/course/" + c.slug), text: ctitle(c) })), h("span", { class: "hint", text: c.passed + " / " + c.lessons + " " + t("lessons_short") })),
+      bar(c.passed, c.lessons)));
+  });
+}
+
+// Preview without a server: course data is embedded (DEMO_COURSES) and progress lives in memory.
+var demoState = { passed: {}, certs: [], attempts: {} };
+function demoLearning(path, body) {
+  if (typeof DEMO_COURSES === "undefined") return null;
+  var m, C = DEMO_COURSES, P = DEMO_PROGRAMS;
+  function card(c) { return { slug: c.slug, title: c.title, title_en: c.title_en, track: c.track, level: c.level, hours: c.hours, summary: c.summary, lessons: c.lessons.length, exam: c.exam.length }; }
+  function find(s) { return C.find(function (c) { return c.slug === s; }); }
+  function done(s) { return Object.keys(demoState.passed[s] || {}).map(Number); }
+  function strip(q) { return q.map(function (x, i) { return { i: i, q: x.q, options: x.options }; }); }
+  function grade(q, a) { var r = q.map(function (x, i) { return Number(a[i]) === x.correct; }); var right = r.filter(Boolean).length; return { results: r, right: right, total: q.length, score: right / q.length }; }
+  function cert(kind, ref) { return demoState.certs.find(function (c) { return c.kind === kind && c.ref === ref && !c.revoked; }); }
+  function newCode() { return "DEMO-" + Math.random().toString(36).slice(2, 8).toUpperCase(); }
+  var nf = new Error("not found"); nf.status = 404;
+  if (path === "/api/courses") { var my = {}; C.forEach(function (c) { var n = done(c.slug).length; if (n) my[c.slug] = n; }); return Promise.resolve({ courses: C.map(card), programs: P, my: my }); }
+  if ((m = path.match(/^\/api\/courses\/(\w+)$/))) {
+    var c = find(m[1]); if (!c) return Promise.reject(nf);
+    var cc = cert("course", c.slug);
+    return Promise.resolve({ course: Object.assign(card(c), { about: c.about, outline: c.lessons.map(function (l, i) { return { n: i + 1, title: l.title, quiz: l.quiz.length }; }) }),
+      programs: P.filter(function (p) { return p.courses.indexOf(c.slug) !== -1; }), my: { passed: done(c.slug), certificate: cc ? cc.code : null } });
+  }
+  if ((m = path.match(/^\/api\/courses\/(\w+)\/lessons\/(\d+)$/))) {
+    var c2 = find(m[1]), n = Number(m[2]), l = c2 && c2.lessons[n - 1]; if (!l) return Promise.reject(nf);
+    if (!body) return Promise.resolve({ course: card(c2), lesson: { n: n, title: l.title, body: l.body, quiz: strip(l.quiz) }, passed: !!(demoState.passed[c2.slug] || {})[n],
+      total: c2.lessons.length, outline: c2.lessons.map(function (x, i) { return { n: i + 1, title: x.title }; }), done: done(c2.slug) });
+    var g = grade(l.quiz, body.answers), ok = g.score >= 0.7;
+    if (ok) { demoState.passed[c2.slug] = demoState.passed[c2.slug] || {}; demoState.passed[c2.slug][n] = true; }
+    return Promise.resolve(Object.assign(g, { passed: ok }));
+  }
+  if ((m = path.match(/^\/api\/courses\/(\w+)\/exam$/))) {
+    var c3 = find(m[1]); if (!c3) return Promise.reject(nf);
+    var ready = c3.lessons.every(function (_, i) { return done(c3.slug).indexOf(i + 1) !== -1; });
+    var have = cert("course", c3.slug), left = 5 - (demoState.attempts[c3.slug] || 0);
+    if (!body) return Promise.resolve({ course: card(c3), ready: ready, attemptsLeft: left, certificate: have ? have.code : null, questions: ready ? strip(c3.exam) : [] });
+    demoState.attempts[c3.slug] = (demoState.attempts[c3.slug] || 0) + 1;
+    var g3 = grade(c3.exam, body.answers), passed = g3.score >= 0.7, code = have ? have.code : null, progs = [];
+    var today = new Date().toISOString().slice(0, 19).replace("T", " ");
+    if (passed && !code) {
+      code = newCode();
+      demoState.certs.push({ code: code, kind: "course", ref: c3.slug, title: c3.title, full_name: body.full_name, hours: c3.hours, score: Math.round(g3.score * 100), issued_at: today, revoked: 0 });
+      P.forEach(function (p) {
+        if (cert("program", p.slug) || !p.courses.every(function (s) { return cert("course", s); })) return;
+        var pc = newCode(), hrs = p.courses.reduce(function (a, s) { return a + find(s).hours; }, 0);
+        var sc = Math.round(p.courses.reduce(function (a, s) { return a + cert("course", s).score; }, 0) / p.courses.length);
+        demoState.certs.push({ code: pc, kind: "program", ref: p.slug, title: p.title, full_name: body.full_name, hours: hrs, score: sc, issued_at: today, revoked: 0,
+          courses: p.courses.map(function (s) { return find(s).title; }) });
+        progs.push(pc);
+      });
+    }
+    return Promise.resolve({ score: g3.score, right: g3.right, total: g3.total, passed: passed, certificate: passed ? code : null, programs: progs, attemptsLeft: left - 1 });
+  }
+  if ((m = path.match(/^\/api\/certs\/([A-Z0-9-]+)$/))) {
+    var found = demoState.certs.find(function (c) { return c.code === m[1]; });
+    if (found) return Promise.resolve({ certificate: found });
+    if (m[1] === "SB-2026-SAMPLE01") return Promise.resolve({ certificate: { code: "SB-2026-SAMPLE01", kind: "course", ref: "excel", title: C[1].title, full_name: "Имя Фамилия", hours: C[1].hours, score: 88, issued_at: "2026-10-15 10:00:00", revoked: 0 } });
+    return Promise.reject(nf);
+  }
+  return null;
+}
+
+// ---------------- cabinet ----------------
+function badge(kind, status) { return h("span", { class: "badge b-" + status, text: t(kind + "_" + status) }); }
+function fmtDate(s) { return s ? s.slice(0, 16).replace("T", " ") : ""; }
+function personName(first, last, username) {
+  return [first, last].filter(Boolean).join(" ") + (username ? " (@" + username + ")" : "");
+}
+function trackName(id) { for (var i = 0; i < TRACKS.length; i++) if (TRACKS[i].id === id) return L(TRACKS[i]); return id; }
+
+function renderCabinet() {
+  var w = h("div", { class: "wrap cab" });
+  app.append(w);
+  if (!me.user) {
+    var failed = location.search.indexOf("login=failed") !== -1;
+    w.append(h("div", { class: "formbox narrow" }, h("h1", { text: t("login_h"), style: "font-size:24px" }), h("p", { class: "hint", text: t("login_p") }),
+      failed ? h("p", { class: "err", text: t("login_failed") }) : null, loginWidget("/cabinet")));
+    return;
+  }
+  var u = me.user;
+  var logout = h("form", { method: "post", action: "/logout" }, h("button", { class: "btn btn-line btn-sm", type: "submit", text: t("logout") }));
+  w.append(h("div", { class: "cabhead" },
+    h("div", { class: "userline" }, u.photo_url ? h("img", { src: u.photo_url, alt: "" }) : h("div", { class: "ava", text: (u.first_name || "?").charAt(0) }),
+      h("div", { class: "who" }, h("h2", { text: personName(u.first_name, u.last_name, "") }), u.username ? h("p", { class: "role", text: "@" + u.username }) : null)),
+    logout));
+  var tabs = [["learning", t("t_learning")], ["orders", t("t_orders")], ["profile", t("t_profile")]];
+  if (me.isAdmin) tabs.push(["admin", t("t_admin")]);
+  var bar = h("div", { class: "tabs", role: "tablist" }), body = h("div", { class: "list" });
+  tabs.forEach(function (tb) {
+    bar.append(h("button", { type: "button", class: "tab", role: "tab", "aria-selected": String(cabTab === tb[0]), text: tb[1],
+      onclick: function () { cabTab = tb[0]; render(); } }));
+  });
+  w.append(bar, body);
+  var run = cabTab === "profile" ? tabProfile : cabTab === "admin" && me.isAdmin ? tabAdmin : cabTab === "orders" ? tabOrders : tabLearning;
+  body.append(h("p", { class: "hint", text: t("loading") }));
+  run(body).catch(function (e) { body.textContent = ""; body.append(h("p", { class: "err", text: e.status === 401 ? t("need_login") : t("error") })); });
+}
+
+async function setStatus(id, status) {
+  await api("/api/orders/" + id + "/status", { status: status });
+  render();
+}
+
+function orderCard(o, as, extra) {
+  var title;
+  if (as === "client") title = o.specialist_name ? o.specialist_name + (o.specialist_title ? " — " + o.specialist_title : "") : t("spec_not_set");
+  else title = t("client") + ": " + personName(o.client_first, o.client_last, o.client_username);
+  var acts = h("div", { class: "actions" });
+  function act(label, status, cls) { acts.append(h("button", { type: "button", class: "btn btn-sm " + (cls || "btn-line"), text: label, onclick: function () { this.disabled = true; setStatus(o.id, status).catch(function () { render(); }); } })); }
+  if (as === "client" && (o.status === "new" || o.status === "accepted")) act(t("a_cancel"), "cancelled", "btn-danger");
+  if (as === "spec" && o.status === "new") { act(t("a_accept"), "accepted", "btn-primary"); act(t("a_decline"), "declined", "btn-danger"); }
+  if (as === "spec" && o.status === "accepted") act(t("a_done"), "done", "btn-primary");
+  return h("div", { class: "ocard" },
+    h("div", { class: "ohead" }, h("h3", { text: "№" + o.id + " · " + title }), badge("st", o.status)),
+    h("p", { class: "otask", text: o.task }),
+    h("div", { class: "ometa" },
+      o.budget ? h("span", { text: t("budget") + ": " + o.budget }) : null,
+      o.deadline ? h("span", { text: t("deadline") + ": " + o.deadline }) : null,
+      as !== "client" && o.contact ? h("span", { text: t("contact") + ": " + o.contact }) : null,
+      h("span", { text: t("created") + ": " + fmtDate(o.created_at) })),
+    extra || null,
+    acts.childNodes.length ? acts : null);
+}
+
+async function tabOrders(body) {
+  var d = await api("/api/orders");
+  body.textContent = "";
+  body.append(h("h2", { text: t("my_orders") }));
+  if (!d.mine.length) body.append(h("p", { class: "empty" }, t("no_my_orders") + " ", h("a", { href: "/#people", text: t("n_people") })));
+  d.mine.forEach(function (o) { body.append(orderCard(o, "client")); });
+  if (me.profile || d.forme.length) {
+    body.append(h("h2", { text: t("forme"), style: "margin-top:12px" }));
+    if (!d.forme.length) body.append(h("p", { class: "empty", text: t("no_forme") }));
+    d.forme.forEach(function (o) { body.append(orderCard(o, "spec")); });
+  }
+}
+
+async function tabProfile(body) {
+  var p = me.profile || {};
+  body.textContent = "";
+  var catSel = h("select", { id: "p-cat" });
+  CATS.slice(1).forEach(function (c) { catSel.append(h("option", { value: c.id, text: c[lang] })); });
+  catSel.value = p.category || "dev";
+  var err = h("p", { class: "err", "aria-live": "polite" }), ok = h("p", { class: "ok", hidden: true });
+  var btn = h("button", { class: "btn btn-primary", type: "submit", text: t("p_save") });
+  var form = h("form", { class: "formbox", novalidate: true },
+    me.profile ? h("div", { class: "actions" }, h("span", { class: "hint", text: t("p_status") + ":" }), badge("ps", p.status)) : h("p", { class: "hint", text: t("p_intro") }),
+    h("div", { class: "row" },
+      h("label", null, t("p_name"), h("input", { id: "p-name", maxlength: "80", value: p.name || [me.user.first_name, me.user.last_name].filter(Boolean).join(" ") })),
+      h("label", null, t("p_title"), h("input", { id: "p-title", maxlength: "80", placeholder: t("p_title_ph"), value: p.title || "" }))),
+    h("div", { class: "row" },
+      h("label", null, t("p_cat"), catSel),
+      h("label", null, t("p_city"), h("input", { id: "p-city", maxlength: "60", value: p.city || "" }))),
+    h("label", null, t("p_skills"), h("textarea", { id: "p-skills", maxlength: "1500", value: p.skills || "" })),
+    h("div", { class: "row" },
+      h("label", null, t("p_price"), h("input", { id: "p-price", maxlength: "60", placeholder: "$100", value: p.price || "" })),
+      h("label", null, t("p_portfolio"), h("input", { id: "p-portfolio", maxlength: "300", placeholder: "https://", value: p.portfolio || "" }))),
+    err, ok, h("div", null, btn));
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    function val(id) { return form.querySelector(id).value.trim(); }
+    if (!val("#p-name") || !val("#p-title") || !val("#p-skills")) { err.textContent = t("p_req"); return; }
+    err.textContent = ""; btn.disabled = true;
+    try {
+      var r = await api("/api/profile", { name: val("#p-name"), title: val("#p-title"), category: catSel.value, skills: val("#p-skills"),
+        price: val("#p-price"), city: val("#p-city"), portfolio: val("#p-portfolio") });
+      me.profile = r.profile; ok.hidden = false; ok.textContent = t("p_saved");
+      var st = form.querySelector(".badge"); if (st) st.replaceWith(badge("ps", r.profile.status));
+    } catch (ex) { err.textContent = ex.status === 401 ? t("need_login") : t("error"); }
+    finally { btn.disabled = false; }
+  });
+  body.append(form);
+}
+
+async function tabAdmin(body) {
+  var d = await api("/api/admin");
+  body.textContent = "";
+  body.append(h("div", { class: "stats" },
+    [["users", d.counts.users], ["specialists", d.counts.specialists], ["orders", d.counts.orders], ["leads", d.counts.leads], ["certs_n", d.counts.certs]].map(function (x) {
+      return h("div", null, h("b", { text: x[1] }), h("span", { text: t(x[0]) }));
+    })));
+
+  body.append(h("h2", { text: t("adm_leads"), style: "margin-top:8px" }));
+  var openLeads = (d.leads || []).filter(function (l) { return l.status !== "archived"; });
+  if (!openLeads.length) body.append(h("p", { class: "empty", text: t("adm_noleads") }));
+  openLeads.forEach(function (l) {
+    function mark(status) { return function () { this.disabled = true; api("/api/admin/leads/" + l.id, { status: status }).then(render, render); }; }
+    body.append(h("div", { class: "ocard" },
+      h("div", { class: "ohead" }, h("h3", { text: "№" + l.id + " · " + (l.kind === "b2b" ? t("k_b2b") : t("k_learn")) + " · " + l.name + (l.company ? " (" + l.company + ")" : "") }), badge("ls", l.status)),
+      h("div", { class: "ometa" },
+        h("span", { text: t("contact") + ": " + l.contact }),
+        l.track ? h("span", { text: trackName(l.track) }) : null, l.level ? h("span", { text: l.level }) : null,
+        l.english ? h("span", { text: "English: " + l.english }) : null, l.city ? h("span", { text: l.city }) : null,
+        h("span", { text: t("created") + ": " + fmtDate(l.created_at) })),
+      l.message ? h("p", { class: "otask", text: l.message }) : null,
+      h("div", { class: "actions" },
+        l.status === "new" ? h("button", { type: "button", class: "btn btn-primary btn-sm", text: t("adm_contacted"), onclick: mark("contacted") }) : null,
+        h("button", { type: "button", class: "btn btn-line btn-sm", text: t("adm_archive"), onclick: mark("archived") }))));
+  });
+
+  body.append(h("h2", { text: t("adm_certs"), style: "margin-top:12px" }));
+  if (!(d.certs || []).length) body.append(h("p", { class: "empty", text: "—" }));
+  (d.certs || []).forEach(function (c) {
+    body.append(h("div", { class: "ocard" },
+      h("div", { class: "ohead" }, h("h3", null, h("a", { href: link("/cert/" + c.code), text: c.code }), " · " + c.full_name),
+        h("span", { class: "badge " + (c.revoked ? "b-rejected" : "b-accepted"), text: c.revoked ? t("cert_revoked") : (c.kind === "program" ? t("k_id") : t("k_cert")) })),
+      h("div", { class: "ometa" }, h("span", { text: c.title }), h("span", { text: c.score + "%" }), c.username ? h("span", { text: "@" + c.username }) : null, h("span", { text: fmtDate(c.issued_at) })),
+      h("div", { class: "actions" }, h("button", { type: "button", class: "btn btn-sm " + (c.revoked ? "btn-line" : "btn-danger"), text: c.revoked ? t("adm_restore") : t("adm_revoke"),
+        onclick: function () { this.disabled = true; api("/api/admin/certs/" + c.code, { revoked: !c.revoked }).then(render, render); } }))));
+  });
+
+  body.append(h("h2", { text: t("adm_pending"), style: "margin-top:12px" }));
+  if (!d.pending.length) body.append(h("p", { class: "empty", text: t("adm_none") }));
+  d.pending.forEach(function (p) {
+    function decide(status) { return function () { this.disabled = true; api("/api/admin/profiles/" + p.user_id, { status: status }).then(render, render); }; }
+    body.append(h("div", { class: "ocard" },
+      h("div", { class: "ohead" }, h("h3", { text: p.name + " — " + p.title }), badge("ps", p.status)),
+      h("p", { class: "otask", text: p.skills }),
+      h("div", { class: "ometa" }, h("span", { text: catName(p.category) }), p.city ? h("span", { text: p.city }) : null, p.price ? h("span", { text: p.price }) : null,
+        h("span", { text: "Telegram: " + personName(p.first_name, p.last_name, p.username) }),
+        p.portfolio ? h("a", { href: p.portfolio, target: "_blank", rel: "noopener nofollow", text: t("portfolio") }) : null),
+      h("div", { class: "actions" },
+        h("button", { type: "button", class: "btn btn-primary btn-sm", text: t("adm_approve"), onclick: decide("approved") }),
+        h("button", { type: "button", class: "btn btn-danger btn-sm", text: t("adm_reject"), onclick: decide("rejected") }))));
+  });
+
+  body.append(h("h2", { text: t("adm_orders"), style: "margin-top:12px" }));
+  if (!d.orders.length) body.append(h("p", { class: "empty", text: "—" }));
+  d.orders.forEach(function (o) {
+    var extra = null;
+    if (!o.specialist_id || o.status === "declined") {
+      var sel = h("select", { style: "max-width:280px" }, h("option", { value: "", text: t("adm_pick") }));
+      d.approved.forEach(function (s) { sel.append(h("option", { value: String(s.user_id), text: s.name + " — " + s.title })); });
+      extra = h("div", { class: "actions" }, sel, h("button", { type: "button", class: "btn btn-line btn-sm", text: t("adm_assign"),
+        onclick: function () { if (!sel.value) return; this.disabled = true; api("/api/admin/orders/" + o.id, { specialist_id: Number(sel.value) }).then(render, render); } }));
+    }
+    var card = orderCard(o, "admin", extra);
+    card.querySelector("h3").textContent = "№" + o.id + " · " + personName(o.client_first, o.client_last, o.client_username) + " → " + (o.specialist_name || t("spec_not_set"));
+    body.append(card);
+  });
+}
+
+boot();
+</script>
+</body>
+</html>

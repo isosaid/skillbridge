@@ -1,0 +1,14 @@
+# Для деплоя через Wrangler (необязательно — можно вставить dist/skillbridge-worker.js в панели Cloudflare).
+# BOT_TOKEN задаётся как секрет: npx wrangler secret put BOT_TOKEN
+name = "skillbridge"
+main = "dist/skillbridge-worker.js"
+compatibility_date = "2024-09-01"
+
+[vars]
+BOT_USERNAME = "your_bot_username"   # логин бота без @
+ADMIN_ID = "000000000"               # ваш Telegram ID
+
+[[d1_databases]]
+binding = "DB"
+database_name = "skillbridge"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
